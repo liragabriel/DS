@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/estilo.css">
+    <script src="static/jquery.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <title>Access</title>
+</head>
+
+<body>
+
+    <div id="header_acc" class="header">
+        <div class="header">
+            <nav class="nav_menu">
+                <ul class="menu">
+                    <ul>
+                        <a href="home" title="Home">Home</a>
+                    </ul>
+                    <ul>
+                        <a href="access" title="Access">Access</a>
+                    </ul>
+                    <ul>
+                        <a href="error" title="Error">Error</a>
+                    </ul>
+                </ul>
+            </nav>
+        </div> 
+    </div> 
+
+    <div id="graficos" class="container">
+
+    <div class="panel-goup" id="painel_acc">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" data-toggle="collapse" data-target="#primeiro" data-parent="#painel_acc">Acessos por Usuário</h3>
+            </div>
+        <div id="primeiro" class="collapse">
+            <div class="panel-body">    
+                <img src="static/acessos_por_usuario.png ">
+            </div>
+        </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" data-toggle="collapse" data-target="#segundo" data-parent="#painel_acc">Acessos por URL</h3>
+            </div>
+        <div id="segundo" class="collapse">
+            <div class="panel-body">    
+                <img id="acc_url" src="static/acessos_por_url.png">
+            </div>
+        </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" data-toggle="collapse" data-target="#terceiro" data-parent="#painel_acc">Status Code</h3>
+            </div>
+        <div id="terceiro" class="collapse">
+            <div class="panel-body">    
+                <img src="static/status_code.png">
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+    </div>
+
+<footer>
+
+</footer>
+
+</body>
+
+</html>
