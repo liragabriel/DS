@@ -13,7 +13,7 @@
 
 ul {
 	margin-top: 5px;
-	color: #f0f0f0
+	color: #1155af
 }
 
 html {
@@ -35,8 +35,13 @@ html {
     text-align: center;
 }
 
+.tb_btn {
+	float: right;
+	width: 100%
+}
+
 .btn_acc {
-	margin-top: 200px;
+	margin-top: 1px;
 	margin-right: 20px; 
 	float: right;
 	background: #21a343;
@@ -74,9 +79,9 @@ html {
 }
 
 .btn_error {
-	margin-top: 200px;
-	margin-left: 20px;
-	float: left;
+	margin-top: 20px;
+	margin-right: 20px;
+	float: right;
 	background: #21a343;
   	background-image: -webkit-linear-gradient(top, #21a343, #000000);
   	background-image: -moz-linear-gradient(top, #21a343, #000000);

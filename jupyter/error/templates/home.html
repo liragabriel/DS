@@ -27,20 +27,28 @@
             </nav>
         </div> 
 
-        <table>
-            <div id="btn_acc">
-                <form>
-                    <a href="access" class="btn_acc">Access Stats</a>
-                </form>
-            </div>
+        <form action="home" method="POST">
+            <fieldset>
+                <div id="pesquisa_fsan">
+                    <label for="fsan">Pesquisar FSAN</label>
+                    <input type="text" id="fsan" name="fsan">
+                </div>
+                <button type="submit" id="btn_fsan">Ver</button>
+            </fieldset>
+        </form>
 
-            <div id="btn_error">
-                <form>
-                    <a href="error" class="btn_error">Error Stats</a>
-                </form>
-            </div>
-        </table>
+        <div id="btn_acc">
+            <table class="tb_btn">
+                <a href="access" class="btn_acc">Access Stats</a>
+            </table>
+        </div>
 
+        <div id="btn_error">
+            <table class="tb_btn">
+                <a href="error" class="btn_error">Error Stats</a>
+            </table>
+        </div>
+ 
     <footer>
         
     </footer>
