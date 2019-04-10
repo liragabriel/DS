@@ -12,7 +12,7 @@
     <body>
 
         <div class="header">
-            <nav class="nav_menu">
+            <nav class="navbar">
                 <ul class="menu">
                     <ul>
                         <a href="home" title="Home">Home</a>
@@ -25,33 +25,49 @@
                     </ul>
                 </ul>
             </nav>
-        </div> 
+        </div>
 
-        <form action="home" method="POST">
-            <fieldset>
-                <div id="pesquisa_fsan">
-                    <label for="fsan">Pesquisar FSAN</label>
-                    <input type="text" id="fsan" name="fsan">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <form action="home" method="POST">
+                        <fieldset>
+                            <div>
+                                <input class="pesquisa_fsan" type="text" id="fsan" name="fsan">
+                            </div>
+                            <div>
+                                <button class="pesquisa_fsan" type="submit">Pesquisar FSAN</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <div id="btn_acc">
+                        <table class="tb_btn">
+                            <a href="access" class="btn_acc">Access Stats</a>
+                        </table>
+                    </div>
+
+                    <div id="btn_error">
+                        <table class="tb_btn">
+                            <a href="error" class="btn_error">Error Stats</a>
+                        </table>
+                    </div>
                 </div>
-                <button type="submit" id="btn_fsan">Ver</button>
-            </fieldset>
-        </form>
 
-        <div id="btn_acc">
-            <table class="tb_btn">
-                <a href="access" class="btn_acc">Access Stats</a>
-            </table>
-        </div>
+                <div class="col-md-6">
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="container">
+                            <h1 class="display-4">TESTE</h1>
+                            <p class="lead">Testando o teste testado</p>
+                        </div>
+                    </div>
+                </div>
 
-        <div id="btn_error">
-            <table class="tb_btn">
-                <a href="error" class="btn_error">Error Stats</a>
-            </table>
+            </div>
+
         </div>
- 
-    <footer>
-        
-    </footer>
 
     </body>
 

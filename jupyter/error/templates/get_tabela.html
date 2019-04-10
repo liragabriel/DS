@@ -3,14 +3,17 @@
 <html>
 
     <head>
+        <link rel="stylesheet" type="text/css" href="static/estilo.css">
     </head>
 
     <body>
-        <form>
-            {{ resposta | safe }}
-        </form>
         <form action="home" method="GET">
-            <input type="submit" value="Home">
+            <input id="btn_home" type="submit" value="Home">
+        </form>
+        <form>
+            <div>
+                {{ resposta | safe }}
+            </div>
         </form>
     </body>
 
