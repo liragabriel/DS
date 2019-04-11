@@ -18,10 +18,10 @@
                         <a href="home" title="Home">Home</a>
                     </ul>
                     <ul>
-                        <a href="access" title="Access">Access</a>
+                        <a href="access" title="Access">Access Stats</a>
                     </ul>
                     <ul>
-                        <a href="error" title="Error">Error</a>
+                        <a href="error" title="Error">Error Stats</a>
                     </ul>
                 </ul>
             </nav>
@@ -30,33 +30,20 @@
         <div class="container">
 
             <div class="row">
-
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <form action="home" method="POST">
                         <fieldset>
-                            <div>
-                                <input class="pesquisa_fsan" type="text" id="fsan" name="fsan">
-                            </div>
-                            <div>
-                                <button class="pesquisa_fsan" type="submit">Pesquisar FSAN</button>
-                            </div>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input name="fsan" class="form-control mr-sm-2" type="search" placeholder="Pesquisar FSAN" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                            </form>
                         </fieldset>
                     </form>
-
-                    <div id="btn_acc">
-                        <table class="tb_btn">
-                            <a href="access" class="btn_acc">Access Stats</a>
-                        </table>
-                    </div>
-
-                    <div id="btn_error">
-                        <table class="tb_btn">
-                            <a href="error" class="btn_error">Error Stats</a>
-                        </table>
-                    </div>
                 </div>
+            </div>
 
-                <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
                     <div class="jumbotron jumbotron-fluid">
                         <div class="container">
                             <h1 class="display-4">TESTE</h1>
@@ -64,7 +51,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
         </div>

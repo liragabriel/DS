@@ -99,6 +99,7 @@ for c in fsan:
 lista_data = []
 for x in sequencia:
     lista_data.append(pd.DataFrame(x))
+    pd.set_option('display.max_colwidth', -1)
 
 #Nomeia a coluna de cada dataframe com o valor do fsan
 for x in range(len(lista_data)):
@@ -289,8 +290,7 @@ ax.legend(labels, loc="best")
 ax.axis('equal')
 plt.savefig('static/operacao_error.png')
 
-#038AD969
-#038D60D9
+
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/home', methods=['POST', 'GET'])
 def home():
@@ -319,3 +319,6 @@ def error():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+#038AD969
+#038D60D9
