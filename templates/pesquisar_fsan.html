@@ -2,8 +2,8 @@
 
 {% block content %}
     <div class="container">
-        <form action="home" method="POST">
-            <div class="row justify-content-center">
+        <form action="pesquisar_fsan" method="POST">
+            <div class="row justify-content-center" style="margin-bottom: 30px">
                 <form class="form">
                     <div class="col-md-5 col-sm-12">
                         <input name="fsan" class="form-control mr-sm-2" type="search" placeholder="Pesquisar FSAN" aria-label="Search">
@@ -14,8 +14,10 @@
                 </form>
             </div>
         </form>
-        <div class="row justify-content-center">
-            {{ resposta }}
-        </div>
+        <form>
+            <div class="table-responsive">
+                {{ resposta | safe }}
+            </div>
+        </form>
     </div>
 {% endblock content %}

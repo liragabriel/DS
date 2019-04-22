@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="static/fontAwesome/css/all.css">
         <link rel="stylesheet" type="text/css" href="static/estilo.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -10,34 +11,47 @@
         <title>NetStats</title>
     </head>
     <body>
-
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="home">NetStats</a>
         </nav>
-
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <nav class="col-md-2.5 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="home">Home</a>
+                                <a class="nav-link active" href="home">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="pesquisar_fsan">Pesquisar Fsan</a>
+                                <a class="nav-link" href="pesquisar_fsan">
+                                <i class="fas fa-search"></i>
+                                <span>Pesquisar Fsan</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="error">Error</a>
+                                <a class="nav-link" href="acessos_por_usuario">
+                                <i class="fas fa-chart-pie"></i>
+                                <span>Acessos por Usuário</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="acessos_por_url">
+                                <i class="fas fa-chart-pie"></i>
+                                <span>Acessos por URL</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="status_code">
+                                <i class="fas fa-chart-pie"></i>
+                                <span>Status Code<span></a>
                             </li>
                         </ul>
                     </div>
                 </nav>
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="margin-top: 10%">
+                    {% block content %}
+                    {% endblock content %}
+                </main>
             <div>
         </div>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            {% block content %}
-            {% endblock content %}
-        </main>
     </body>
 </html>

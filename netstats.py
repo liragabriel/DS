@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request
 import pandas as pd
 import seaborn as sns
@@ -8,13 +9,13 @@ app = Flask(__name__)
 
 
 """ACCESS"""
-logs = pd.read_csv(r'/home/desktop/dev/jupyter/error/websvc_access.csv')
+logs = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_access.csv')
 logs.drop('fora', inplace=True, axis=1)
 
 
 #Acessos por Usuário
-def acesso_porself_usuario(self):
-    acessos_por_usuario = self.logs.usuario.value_counts().to_frame().reset_index()
+def acesso_por_usuario():
+    acessos_por_usuario = logs.usuario.value_counts().to_frame().reset_index()
     acessos_por_usuario.columns = ['Usuario', 'Acessos']
 
     labels = acessos_por_usuario['Usuario']
@@ -30,11 +31,11 @@ def acesso_porself_usuario(self):
 
 
 #Acessos por URL
-def acesso_por_url(self):
-    urls = self.logs.url.value_counts().to_frame().reset_index()
+def acesso_por_url():
+    urls = logs.url.value_counts().to_frame().reset_index()
     urls.columns = ['url', 'acessos']
 
-    x = urls.loc[(urls['acessos'] >= 200)].url
+    x = urls.loc[(urls['acessos'] >= 100)].url
     y = urls.acessos
 
     plt.figure()
@@ -46,19 +47,19 @@ def acesso_por_url(self):
 
 
 #Status Code
-def status_code(self):
-    status = self.logs.status_code.value_counts().to_frame().reset_index()
+def status_code():
+    status = logs.status_code.value_counts().to_frame().reset_index()
     status.columns = ['Code', 'Frequencia']
-    plt.figure(figsize=(10, 10))
+#    plt.figure(figsize=(10, 10))
     plt.title('Status Code')
-    graf_cod = sns.barplot(x=status['Code'].astype(
-        int), y=status['Frequencia'], hue=status.Code.astype(int))
+    graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequencia'])
     fig = graf_cod.get_figure()
     fig.savefig('static/status_code.png')
+#hue=status.Code.astype(int)
 
 
 """ ERROR """
-operacao = pd.read_csv(r'/home/desktop/dev/jupyter/error/websvc_error1.csv')
+operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
 
 
 #Lista todos os elementos da coluna operacao
@@ -87,7 +88,7 @@ for item in lista_fsan:
     if item not in fsan:
         fsan.append(item)
 
-#Cria uma sequência de todas as operaçãoes com determinado fsan
+#Cria uma sequência de todas as operações com determinado fsan
 sequencia = []
 for c in fsan:
     lista = []
@@ -113,23 +114,23 @@ for x in range(len(lista_data)):
 
 
 #Percentual de sucesso
-def percentual_sucesso(self):
+def percentual_sucesso():
     contador_creates = 0
-    for item in self.ultima_msg:
+    for item in ultima_msg:
         if 'OK' in item or 'onu_business_create' in item or 'voip_create:' in item or 'onu_delete: fsan' in item:
             contador_creates += 1
 
     cruzo_creates = contador_creates*100
-    resultado_sucesso = cruzo_creates/len(self.ultima_msg)
+    resultado_sucesso = cruzo_creates/len(ultima_msg)
 
     #Percentual de ERROR
     contador_error = 0
-    for item in self.ultima_msg:
+    for item in ultima_msg:
         if '"error"' in item:
             contador_error += 1
 
     cruzo_error = contador_error*100
-    resultado_error = cruzo_error/len(self.ultima_msg)
+    resultado_error = cruzo_error/len(ultima_msg)
 
     ocorrencia = {
         'tipo': ['Sucesso', 'Erro'],
@@ -155,11 +156,11 @@ def percentual_sucesso(self):
 
 
 #Sucesso por operação
-def sucesso_por_operacao(self):
+def sucesso_por_operacao():
     sucessos = []
-    for x in range(len(self.ultima_msg)):
-        if '"error"' not in self.ultima_msg[x]:
-            corte_sucessos = self.ultima_msg[x].split()
+    for x in range(len(ultima_msg)):
+        if '"error"' not in ultima_msg[x]:
+            corte_sucessos = ultima_msg[x].split()
             sucessos.append(corte_sucessos[0])
 
     lista_sucessos = []
@@ -204,11 +205,11 @@ def sucesso_por_operacao(self):
 
 
 #Erros por operação
-def erros_por_operacao(self):
+def erros_por_operacao():
     erros = []
-    for x in range(len(self.ultima_msg)):
-        if '"error"' in self.ultima_msg[x]:
-            corte_erros = self.ultima_msg[x].split()
+    for x in range(len(ultima_msg)):
+        if '"error"' in ultima_msg[x]:
+            corte_erros = ultima_msg[x].split()
             erros.append(corte_erros[0])
 
     lista_erros = []
@@ -293,9 +294,14 @@ def erros_por_operacao(self):
     plt.savefig('static/operacao_error.png')
 
 
+#Exclui as imagens geradas e retorna o template inicial
 @app.route('/')
 @app.route('/home')
 def home():
+    for imagem in os.listdir('static'):
+        if imagem in os.listdir('static'):
+            if imagem != 'estilo.css' and imagem != 'fontAwesome':
+                os.remove(f'static/{imagem}')
     return render_template('home.html')
 
 
@@ -313,16 +319,45 @@ def pesquisar_fsan():
     else:
         return render_template('pesquisar_fsan.html')
 
-'''
-#access
-def acesso_por_usuario():
-def acesso_por_url():
-def status_code():
 
+#access
+@app.route('/acessos_por_usuario')
+def rota_acesso_por_usuario():
+    imagem = 'static/acessos_por_usuario.png'
+    while True:
+        try:
+            if os.path.exists(imagem):
+                return render_template('acessos_por_usuario.html')
+            else:
+                acesso_por_usuario()
+        except:
+            rota_acesso_por_usuario()
+
+
+@app.route('/acessos_por_url')
+def rota_acesso_por_url():
+    imagem = 'static/acessos_por_url.png'
+    while True:
+        if os.path.exists(imagem):
+            return render_template('acessos_por_url.html')
+        else:
+            acesso_por_url()
+
+
+@app.route('/status_code')
+def rota_status_code():
+    imagem = 'static/status_code.png'
+    while True:
+        if os.path.exists(imagem):
+            return render_template('status_code.html')
+        else:
+            status_code()
+
+'''
 #error
-def percentual_sucesso():
-def sucesso_por_operacao():
-def erros_por_operacao():
+def rota_percentual_sucesso():
+def rota_sucesso_por_operacao():
+def rota_erros_por_operacao():
 '''
 
 if __name__ == '__main__':
