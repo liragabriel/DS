@@ -14,7 +14,7 @@
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="home">NetStats</a>
         </nav>
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <nav class="col-md-2.5 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
@@ -29,7 +29,44 @@
                                 <i class="fas fa-search"></i>
                                 <span>Pesquisar Fsan</span></a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Estatísticas de Acesso</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                                    <a class="dropdown-item left-menu-item" href="acessos_por_usuario">Acessos por Usuário</a>
+                                    <a class="dropdown-item left-menu-item" href="acessos_por_url">Acessos por URL</a>
+                                    <a class="dropdown-item left-menu-item" href="status_code">Status Code</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Estatísticas de Operações</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                                    <a class="dropdown-item left-menu-item" href="percentual_sucesso">Percentual de Sucesso</a>
+                                    <a class="dropdown-item left-menu-item" href="sucesso_por_operacao">Sucesso por Operação</a>
+                                    <a class="dropdown-item left-menu-item" href="erros_por_operacao">Erros por Operação</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="margin-top: 10%">
+                    {% block content %}
+                    {% endblock content %}
+                </main>
+            <div>
+        </div>
+    </body>
+</html>
+
+
+
+<!--
+<li class="nav-item">
                                 <a class="nav-link" href="acessos_por_usuario">
                                 <i class="fas fa-chart-pie"></i>
                                 <span>Acessos por Usuário</span></a>
@@ -44,14 +81,4 @@
                                 <i class="fas fa-chart-pie"></i>
                                 <span>Status Code<span></a>
                             </li>
-                        </ul>
-                    </div>
-                </nav>
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="margin-top: 10%">
-                    {% block content %}
-                    {% endblock content %}
-                </main>
-            <div>
-        </div>
-    </body>
-</html>
+-->

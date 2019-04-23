@@ -1,11 +1,9 @@
 import os
-from flask import Flask, render_template, request
 import pandas as pd
 import seaborn as sns
+from flask import Flask, render_template, request
 from matplotlib import pyplot as plt
 plt.style.use('ggplot')
-
-app = Flask(__name__)
 
 
 """ACCESS"""
@@ -15,6 +13,7 @@ logs.drop('fora', inplace=True, axis=1)
 
 #Acessos por Usuário
 def acesso_por_usuario():
+
     acessos_por_usuario = logs.usuario.value_counts().to_frame().reset_index()
     acessos_por_usuario.columns = ['Usuario', 'Acessos']
 
@@ -29,33 +28,45 @@ def acesso_por_usuario():
     plt.tight_layout()
     plt.savefig('static/acessos_por_usuario.png')
 
+    global data_acesso_por_usuario
+    data_acesso_por_usuario = acessos_por_usuario.head().to_html()
+
 
 #Acessos por URL
 def acesso_por_url():
+
     urls = logs.url.value_counts().to_frame().reset_index()
     urls.columns = ['url', 'acessos']
 
-    x = urls.loc[(urls['acessos'] >= 100)].url
+    x = urls.loc[(urls['acessos'] >= 200)].url
     y = urls.acessos
 
     plt.figure()
     plt.xticks(rotation=80)
     plt.title('URLs mais acessadas')
     graf_url = sns.barplot(x=x, y=y, palette='GnBu_d')
+    plt.tight_layout()
     fig = graf_url.get_figure()
-    fig.savefig('static/acessos_por_url.png')
+    fig.savefig('static/acessos_por_url.png', dpi=300, bbox_inches='tight')
+
+    global data_acesso_por_url
+    data_acesso_por_url = urls.head().to_html()
 
 
 #Status Code
 def status_code():
+
     status = logs.status_code.value_counts().to_frame().reset_index()
     status.columns = ['Code', 'Frequencia']
-#    plt.figure(figsize=(10, 10))
+    plt.figure(figsize=(15, 15))
     plt.title('Status Code')
-    graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequencia'])
+    plt.tight_layout()
+    graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequencia'], hue=status.Code.astype(int))
     fig = graf_cod.get_figure()
     fig.savefig('static/status_code.png')
-#hue=status.Code.astype(int)
+
+    global data_status_code
+    data_status_code = status.head().to_html()
 
 
 """ ERROR """
@@ -294,6 +305,9 @@ def erros_por_operacao():
     plt.savefig('static/operacao_error.png')
 
 
+app = Flask(__name__)
+
+
 #Exclui as imagens geradas e retorna o template inicial
 @app.route('/')
 @app.route('/home')
@@ -327,7 +341,7 @@ def rota_acesso_por_usuario():
     while True:
         try:
             if os.path.exists(imagem):
-                return render_template('acessos_por_usuario.html')
+                return render_template('acessos_por_usuario.html', data=data_acesso_por_usuario)
             else:
                 acesso_por_usuario()
         except:
@@ -339,7 +353,7 @@ def rota_acesso_por_url():
     imagem = 'static/acessos_por_url.png'
     while True:
         if os.path.exists(imagem):
-            return render_template('acessos_por_url.html')
+            return render_template('acessos_por_url.html', data=data_acesso_por_url)
         else:
             acesso_por_url()
 
@@ -349,16 +363,41 @@ def rota_status_code():
     imagem = 'static/status_code.png'
     while True:
         if os.path.exists(imagem):
-            return render_template('status_code.html')
+            return render_template('status_code.html', data=data_status_code)
         else:
             status_code()
 
-'''
+
 #error
+@app.route('/percentual_sucesso')
 def rota_percentual_sucesso():
+    imagem = 'static/percentual_sucesso.png'
+    while True:
+        if os.path.exists(imagem):
+            return render_template('percentual_sucesso.html')
+        else:
+            percentual_sucesso()
+
+
+@app.route('/sucesso_por_operacao')
 def rota_sucesso_por_operacao():
+    imagem = 'static/operacao_sucesso.png'
+    while True:
+        if os.path.exists(imagem):
+            return render_template('sucesso_por_operacao.html')
+        else:
+            sucesso_por_operacao()
+
+
+@app.route('/erros_por_operacao')
 def rota_erros_por_operacao():
-'''
+    imagem = 'static/operacao_error.png'
+    while True:
+        if os.path.exists(imagem):
+            return render_template('operacao_error.html')
+        else:
+            erros_por_operacao()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
