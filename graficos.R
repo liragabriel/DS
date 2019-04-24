@@ -1,4 +1,7 @@
 library(dplyr)
+library(plyr)
+library(sqldf)
+library(ggplot2)
 
 access <- read.csv('/home/desktop/dev/jupyter/DS/websvc_access.csv')
 access <- select(access,-c(fora))
@@ -19,12 +22,12 @@ acessos_por_usuario <- function(){
 
 acessos_por_url <- function(){
     urls <- select(access, c(url))
-    urls <- data.frame(urls)
     urls <- table(urls)
+    urls <- data.frame(urls)
+    urls <- sqldf('SELECT urls,Freq FROM urls Order BY Freq')
+    urls <- sqldf('SELECT urls, Freq FROM urls Where Freq > 1000')
     
-    jpeg('url.jpg')
-    barplot(urls, main='Acessos por URL')
-    dev.off()
+    print(urls)
 }
 
 status_code <- function(){

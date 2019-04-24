@@ -11,14 +11,14 @@
         <title>NetStats</title>
     </head>
     <body>
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="home">NetStats</a>
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-3 shadow">
+            <a class="navbar-brand col-sm-2 col-md-2 mr-0" href="home">NetStats</a>
         </nav>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <nav class="col-md-2.5 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
-                        <ul class="nav flex-column">
+                        <ul class="nav flex-column" style="margin-top: 30px">
                             <li class="nav-item">
                                 <a class="nav-link active" href="home">
                                 <i class="fas fa-home"></i>
@@ -54,7 +54,7 @@
                         </ul>
                     </div>
                 </nav>
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="margin-top: 10%">
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="margin-top: 10%; width: 100%">
                     {% block content %}
                     {% endblock content %}
                 </main>
@@ -62,23 +62,3 @@
         </div>
     </body>
 </html>
-
-
-
-<!--
-<li class="nav-item">
-                                <a class="nav-link" href="acessos_por_usuario">
-                                <i class="fas fa-chart-pie"></i>
-                                <span>Acessos por Usuário</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="acessos_por_url">
-                                <i class="fas fa-chart-pie"></i>
-                                <span>Acessos por URL</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="status_code">
-                                <i class="fas fa-chart-pie"></i>
-                                <span>Status Code<span></a>
-                            </li>
--->

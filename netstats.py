@@ -36,13 +36,13 @@ def acesso_por_usuario():
 def acesso_por_url():
 
     urls = logs.url.value_counts().to_frame().reset_index()
-    urls.columns = ['url', 'acessos']
+    urls.columns = ['Url', 'Acessos']
 
-    x = urls.loc[(urls['acessos'] >= 200)].url
-    y = urls.acessos
+    x = urls.loc[(urls['Acessos'] >= 100)].Url
+    y = urls.Acessos
 
-    plt.figure()
-    plt.xticks(rotation=80)
+    plt.figure(figsize=(40,7))
+    plt.xticks(rotation=45)
     plt.title('URLs mais acessadas')
     graf_url = sns.barplot(x=x, y=y, palette='GnBu_d')
     plt.tight_layout()
@@ -61,13 +61,13 @@ def status_code():
     plt.figure(figsize=(15, 15))
     plt.title('Status Code')
     plt.tight_layout()
-    graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequencia'], hue=status.Code.astype(int))
+    graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequencia'])
     fig = graf_cod.get_figure()
     fig.savefig('static/status_code.png')
 
     global data_status_code
     data_status_code = status.head().to_html()
-
+#hue=status.Code.astype(int)
 
 """ ERROR """
 operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
