@@ -22,7 +22,6 @@ def acesso_por_usuario():
     colors = ['yellowgreen', 'gold', 'lightskyblue',
               'lightcoral', 'crimson', 'darkblue', 'fuchsia', 'sienna']
     patches, texts = plt.pie(sizes, colors=colors, shadow=True, startangle=90)
-    plt.title('Acessos por usuário')
     plt.legend(patches, labels, loc="best")
     plt.axis('equal')
     plt.tight_layout()
@@ -38,12 +37,11 @@ def acesso_por_url():
     urls = logs.url.value_counts().to_frame().reset_index()
     urls.columns = ['Url', 'Acessos']
 
-    x = urls.loc[(urls['Acessos'] >= 100)].Url
+    x = urls.loc[(urls['Acessos'] >= 1000)].Url
     y = urls.Acessos
 
-    plt.figure(figsize=(40,7))
+    plt.figure()
     plt.xticks(rotation=45)
-    plt.title('URLs mais acessadas')
     graf_url = sns.barplot(x=x, y=y, palette='GnBu_d')
     plt.tight_layout()
     fig = graf_url.get_figure()
@@ -58,7 +56,8 @@ def status_code():
 
     status = logs.status_code.value_counts().to_frame().reset_index()
     status.columns = ['Code', 'Frequencia']
-    plt.figure(figsize=(15, 15))
+
+    plt.figure()
     plt.title('Status Code')
     plt.tight_layout()
     graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequencia'])
@@ -67,7 +66,7 @@ def status_code():
 
     global data_status_code
     data_status_code = status.head().to_html()
-#hue=status.Code.astype(int)
+
 
 """ ERROR """
 operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')

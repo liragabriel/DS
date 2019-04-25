@@ -7,9 +7,16 @@ body {
 }
 
 img {
-    width: 50%;
-    height: 30%;
-    margin-right: 25%;
+    width: 80%;
+}
+
+.imagem {
+    text-align: center;
+}
+
+.dataframe {
+    width: 80%;
+    margin: 0 auto;
 }
 
 .nav-link {
