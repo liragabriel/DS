@@ -6,12 +6,12 @@ from matplotlib import pyplot as plt
 plt.style.use('ggplot')
 
 
-"""ACCESS"""
+""" ACCESS """
 logs = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_access.csv')
 logs.drop('fora', inplace=True, axis=1)
 
 
-#Acessos por Usuário
+# Retorna um gráfico e um dataframe com a quantidade de acessos por usuário
 def acesso_por_usuario():
 
     acessos_por_usuario = logs.usuario.value_counts().to_frame().reset_index()
@@ -31,7 +31,7 @@ def acesso_por_usuario():
     data_acesso_por_usuario = acessos_por_usuario.head().to_html()
 
 
-#Acessos por URL
+# Retorna uma gráfico e um dataframe com a quantidade de acessos por url
 def acesso_por_url():
 
     urls = logs.url.value_counts().to_frame().reset_index()
@@ -51,7 +51,8 @@ def acesso_por_url():
     data_acesso_por_url = urls.head().to_html()
 
 
-#Status Code
+
+# Retorna um gráfico e um dataframe com a frequência de cada código HTTP
 def status_code():
 
     status = logs.status_code.value_counts().to_frame().reset_index()
@@ -72,25 +73,25 @@ def status_code():
 operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
 
 
-#Lista todos os elementos da coluna operacao
+# Lista todos os elementos da coluna operacao
 lista_com_todos = []
 for x in range(operacao.index.max()):
     lista_com_todos.append(operacao.operacao.loc[(operacao.operacao.index == x)].str.split())
 
-#Lista todos os elementos que tem algum fsan
+# Lista todos os elementos que tem algum fsan
 lista_com_fsan = []
 for x in range(operacao.index.max()):
     if 'fsan' in lista_com_todos[x][x]:
         lista_com_fsan.append(lista_com_todos[x][x])
 
-#Lista apenas o valor do fsan
+# Lista apenas o valor do fsan
 lista_fsan = []
 for c in range(len(lista_com_fsan)):
     for x in range(len(lista_com_fsan[c])):
         if 'fsan' in lista_com_fsan[c][x] and 'dslam_fsan_status:' not in lista_com_fsan[c][x]:
             lista_fsan.append(lista_com_fsan[c][x+1])
 
-#Remove valores repetidos ou sujos
+# Remove valores repetidos ou sujos
 fsan = []
 for item in lista_fsan:
     if item.endswith(':'):
@@ -98,7 +99,7 @@ for item in lista_fsan:
     if item not in fsan:
         fsan.append(item)
 
-#Cria uma sequência de todas as operações com determinado fsan
+# Cria uma sequência de todas as operações com determinado fsan
 sequencia = []
 for c in fsan:
     lista = []
@@ -107,23 +108,23 @@ for c in fsan:
             lista.append(x)
     sequencia.append(lista)
 
-#Cria um dataframe para cada sequência de acontecimentos
+# Cria um dataframe para cada sequência de acontecimentos
 lista_data = []
 for x in sequencia:
     lista_data.append(pd.DataFrame(x))
     pd.set_option('display.max_colwidth', -1)
 
-#Nomeia a coluna de cada dataframe com o valor do fsan
+# Nomeia a coluna de cada dataframe com o valor do fsan
 for x in range(len(lista_data)):
     lista_data[x].columns = [fsan[x]]
 
-#Lista a ultima mensagem para cada operação
+# Lista a ultima mensagem para cada operação
 ultima_msg = []
 for x in range(len(lista_data)):
     ultima_msg.append(lista_data[x].loc[lista_data[x].index.max(), fsan[x]])
 
 
-#Percentual de sucesso
+# Retorna um gráfico com o percentual total de sucesso
 def percentual_sucesso():
     contador_creates = 0
     for item in ultima_msg:
@@ -165,7 +166,7 @@ def percentual_sucesso():
     plt.savefig('static/percentual_sucesso.png')
 
 
-#Sucesso por operação
+# Retorna um gráfico com as operações que obtiveram mais sucessos
 def sucesso_por_operacao():
     sucessos = []
     for x in range(len(ultima_msg)):
@@ -214,7 +215,7 @@ def sucesso_por_operacao():
     plt.savefig('static/operacao_sucesso.png')
 
 
-#Erros por operação
+# Retorna um gráfico com as operações que obtiveram mais erros
 def erros_por_operacao():
     erros = []
     for x in range(len(ultima_msg)):
@@ -307,7 +308,7 @@ def erros_por_operacao():
 app = Flask(__name__)
 
 
-#Exclui as imagens geradas e retorna o template inicial
+# Retorna o template inicial e exclui todos os gráficos gerados
 @app.route('/')
 @app.route('/home')
 def home():
@@ -318,6 +319,7 @@ def home():
     return render_template('home.html')
 
 
+# Retorna todas operações com o fsan pesquisado
 @app.route('/pesquisar_fsan', methods=['POST', 'GET'])
 def pesquisar_fsan():
     if request.method == 'POST':
@@ -333,7 +335,9 @@ def pesquisar_fsan():
         return render_template('pesquisar_fsan.html')
 
 
-#access
+""" ROTAS ACCESS """
+# Se existir gráfico na pasta static retorna o template, se não retorna o método que gera o gráfico
+
 @app.route('/acessos_por_usuario')
 def rota_acesso_por_usuario():
     imagem = 'static/acessos_por_usuario.png'
@@ -367,7 +371,9 @@ def rota_status_code():
             status_code()
 
 
-#error
+""" ROTAS ACCESS """
+# Se existir gráfico na pasta static retorna o template, se não retorna o método que gera o gráfico
+
 @app.route('/percentual_sucesso')
 def rota_percentual_sucesso():
     imagem = 'static/percentual_sucesso.png'
