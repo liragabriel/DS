@@ -7,27 +7,21 @@ body {
 }
 
 img {
-    width: 80%;
+    width: 50%;
 }
 
 .imagem {
     text-align: center;
+    border: solid
 }
 
 .dataframe {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
+    border: solid
 }
 
-.nav-link {
-    color: darkslategray;
-}
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    padding: 48px 0 0;
+.jumbotron {
+    background-image: url("fundo.jpeg");
+    background-size: cover
 }

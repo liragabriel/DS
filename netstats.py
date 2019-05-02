@@ -314,13 +314,13 @@ app = Flask(__name__)
 def home():
     for imagem in os.listdir('static'):
         if imagem in os.listdir('static'):
-            if imagem != 'estilo.css' and imagem != 'fontAwesome':
+            if imagem != 'estilo.css' and imagem != 'fontAwesome' and imagem != 'fundo.jpeg':
                 os.remove(f'static/{imagem}')
     return render_template('home.html')
 
 
 # Retorna todas operações com o fsan pesquisado
-@app.route('/pesquisar_fsan', methods=['POST', 'GET'])
+@app.route('/pesquisar-fsan', methods=['POST', 'GET'])
 def pesquisar_fsan():
     if request.method == 'POST':
         fsan = request.form['fsan']
@@ -338,7 +338,7 @@ def pesquisar_fsan():
 """ ROTAS ACCESS """
 # Se existir gráfico na pasta static retorna o template, se não retorna o método que gera o gráfico
 
-@app.route('/acessos_por_usuario')
+@app.route('/acessos-por-usuario')
 def rota_acesso_por_usuario():
     imagem = 'static/acessos_por_usuario.png'
     while True:
@@ -351,7 +351,7 @@ def rota_acesso_por_usuario():
             rota_acesso_por_usuario()
 
 
-@app.route('/acessos_por_url')
+@app.route('/acessos-por-url')
 def rota_acesso_por_url():
     imagem = 'static/acessos_por_url.png'
     while True:
@@ -361,7 +361,7 @@ def rota_acesso_por_url():
             acesso_por_url()
 
 
-@app.route('/status_code')
+@app.route('/status-code')
 def rota_status_code():
     imagem = 'static/status_code.png'
     while True:
@@ -374,7 +374,7 @@ def rota_status_code():
 """ ROTAS ACCESS """
 # Se existir gráfico na pasta static retorna o template, se não retorna o método que gera o gráfico
 
-@app.route('/percentual_sucesso')
+@app.route('/percentual-sucesso')
 def rota_percentual_sucesso():
     imagem = 'static/percentual_sucesso.png'
     while True:
@@ -384,7 +384,7 @@ def rota_percentual_sucesso():
             percentual_sucesso()
 
 
-@app.route('/sucesso_por_operacao')
+@app.route('/sucesso-por-operacao')
 def rota_sucesso_por_operacao():
     imagem = 'static/operacao_sucesso.png'
     while True:
@@ -394,7 +394,7 @@ def rota_sucesso_por_operacao():
             sucesso_por_operacao()
 
 
-@app.route('/erros_por_operacao')
+@app.route('/erros-por-operacao')
 def rota_erros_por_operacao():
     imagem = 'static/operacao_error.png'
     while True:
