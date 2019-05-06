@@ -12,16 +12,22 @@ img {
 
 .imagem {
     text-align: center;
-    border: solid
+    border: solid;
 }
 
 .dataframe {
     width: 100%;
     margin: 0 auto;
-    border: solid
+    border: solid;
 }
 
 .jumbotron {
     background-image: url("fundo.jpeg");
-    background-size: cover
+    background-size: cover;
+}
+
+.title-home {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-weight: 900;
 }

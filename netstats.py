@@ -15,17 +15,13 @@ logs.drop('fora', inplace=True, axis=1)
 def acesso_por_usuario():
 
     acessos_por_usuario = logs.usuario.value_counts().to_frame().reset_index()
-    acessos_por_usuario.columns = ['Usuario', 'Acessos']
+    acessos_por_usuario.columns = ['Usuário', 'Acessos']
 
-    labels = acessos_por_usuario['Usuario']
-    sizes = acessos_por_usuario['Acessos']
-    colors = ['yellowgreen', 'gold', 'lightskyblue',
-              'lightcoral', 'crimson', 'darkblue', 'fuchsia', 'sienna']
-    patches, texts = plt.pie(sizes, colors=colors, shadow=True, startangle=90)
-    plt.legend(patches, labels, loc="best")
-    plt.axis('equal')
+    plt.figure()
     plt.tight_layout()
-    plt.savefig('static/acessos_por_usuario.png')
+    graf_cod = sns.barplot(x=acessos_por_usuario['Usuário'], y=acessos_por_usuario['Acessos'])
+    fig = graf_cod.get_figure()
+    fig.savefig('static/acessos_por_usuario.png')
 
     global data_acesso_por_usuario
     data_acesso_por_usuario = acessos_por_usuario.head().to_html()
@@ -35,14 +31,14 @@ def acesso_por_usuario():
 def acesso_por_url():
 
     urls = logs.url.value_counts().to_frame().reset_index()
-    urls.columns = ['Url', 'Acessos']
+    urls.columns = ['URL', 'Acessos']
 
-    x = urls.loc[(urls['Acessos'] >= 1000)].Url
+    x = urls.loc[(urls['Acessos'] >= 4000)].URL
     y = urls.Acessos
 
     plt.figure()
     plt.xticks(rotation=45)
-    graf_url = sns.barplot(x=x, y=y, palette='GnBu_d')
+    graf_url = sns.barplot(x=x, y=y)
     plt.tight_layout()
     fig = graf_url.get_figure()
     fig.savefig('static/acessos_por_url.png', dpi=300, bbox_inches='tight')
@@ -51,17 +47,17 @@ def acesso_por_url():
     data_acesso_por_url = urls.head().to_html()
 
 
-
 # Retorna um gráfico e um dataframe com a frequência de cada código HTTP
 def status_code():
 
     status = logs.status_code.value_counts().to_frame().reset_index()
-    status.columns = ['Code', 'Frequencia']
+    status.columns = ['Code', 'Frequência']
+
+    status.Code = [int(i) for i in status.Code]
 
     plt.figure()
-    plt.title('Status Code')
     plt.tight_layout()
-    graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequencia'])
+    graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequência'])
     fig = graf_cod.get_figure()
     fig.savefig('static/status_code.png')
 
