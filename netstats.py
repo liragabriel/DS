@@ -71,21 +71,21 @@ operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
 
 # Lista todos os elementos da coluna operacao
 lista_com_todos = []
-for x in range(operacao.index.max()):
-    lista_com_todos.append(operacao.operacao.loc[(operacao.operacao.index == x)].str.split())
+for i in range(operacao.index.max()):
+    lista_com_todos.append(operacao.operacao.loc[(operacao.operacao.index == i)].str.split())
 
 # Lista todos os elementos que tem algum fsan
 lista_com_fsan = []
-for x in range(operacao.index.max()):
-    if 'fsan' in lista_com_todos[x][x]:
-        lista_com_fsan.append(lista_com_todos[x][x])
+for i in range(operacao.index.max()):
+    if 'fsan' in lista_com_todos[i][i]:
+        lista_com_fsan.append(lista_com_todos[i][i])
 
 # Lista apenas o valor do fsan
 lista_fsan = []
-for c in range(len(lista_com_fsan)):
-    for x in range(len(lista_com_fsan[c])):
-        if 'fsan' in lista_com_fsan[c][x] and 'dslam_fsan_status:' not in lista_com_fsan[c][x]:
-            lista_fsan.append(lista_com_fsan[c][x+1])
+for i in range(len(lista_com_fsan)):
+    for j in range(len(lista_com_fsan[i])):
+        if 'fsan' in lista_com_fsan[i][j] and 'dslam_fsan_status:' not in lista_com_fsan[i][j]:
+            lista_fsan.append(lista_com_fsan[i][j+1])
 
 # Remove valores repetidos ou sujos
 fsan = []
@@ -97,27 +97,27 @@ for item in lista_fsan:
 
 # Cria uma sequência de todas as operações com determinado fsan
 sequencia = []
-for c in fsan:
+for i in fsan:
     lista = []
-    for x in operacao.operacao:
-        if c in x or c+':' in x:
-            lista.append(x)
+    for j in operacao.operacao:
+        if i in j or i+':' in j:
+            lista.append(j)
     sequencia.append(lista)
 
 # Cria um dataframe para cada sequência de acontecimentos
 lista_data = []
-for x in sequencia:
-    lista_data.append(pd.DataFrame(x))
+for i in sequencia:
+    lista_data.append(pd.DataFrame(i))
     pd.set_option('display.max_colwidth', -1)
 
 # Nomeia a coluna de cada dataframe com o valor do fsan
-for x in range(len(lista_data)):
-    lista_data[x].columns = [fsan[x]]
+for i in range(len(lista_data)):
+    lista_data[i].columns = [fsan[i]]
 
 # Lista a ultima mensagem para cada operação
 ultima_msg = []
-for x in range(len(lista_data)):
-    ultima_msg.append(lista_data[x].loc[lista_data[x].index.max(), fsan[x]])
+for i in range(len(lista_data)):
+    ultima_msg.append(lista_data[i].loc[lista_data[i].index.max(), fsan[i]])
 
 
 # Retorna um gráfico com o percentual total de sucesso
@@ -133,7 +133,7 @@ def percentual_sucesso():
     #Percentual de ERROR
     contador_error = 0
     for item in ultima_msg:
-        if '"error"' in item:
+        if 'error' in item:
             contador_error += 1
 
     cruzo_error = contador_error*100
@@ -156,7 +156,7 @@ def percentual_sucesso():
     colors = ['yellowgreen', 'gold']
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(sizes, colors=colors, shadow=True,
-        startangle=90, autopct='%1.1f%%')
+           startangle=90, autopct='%1.1f%%')
     ax.legend(labels, loc="best")
     ax.axis('equal')
     plt.savefig('static/percentual_sucesso.png')
@@ -165,9 +165,9 @@ def percentual_sucesso():
 # Retorna um gráfico com as operações que obtiveram mais sucessos
 def sucesso_por_operacao():
     sucessos = []
-    for x in range(len(ultima_msg)):
-        if '"error"' not in ultima_msg[x]:
-            corte_sucessos = ultima_msg[x].split()
+    for i in range(len(ultima_msg)):
+        if 'error' not in ultima_msg[i]:
+            corte_sucessos = ultima_msg[i].split()
             sucessos.append(corte_sucessos[0])
 
     lista_sucessos = []
@@ -214,9 +214,9 @@ def sucesso_por_operacao():
 # Retorna um gráfico com as operações que obtiveram mais erros
 def erros_por_operacao():
     erros = []
-    for x in range(len(ultima_msg)):
-        if '"error"' in ultima_msg[x]:
-            corte_erros = ultima_msg[x].split()
+    for i in range(len(ultima_msg)):
+        if 'error' in ultima_msg[i]:
+            corte_erros = ultima_msg[i].split()
             erros.append(corte_erros[0])
 
     lista_erros = []
@@ -322,7 +322,7 @@ def pesquisar_fsan():
         fsan = request.form['fsan']
         for tabela in lista_data:
             if fsan == tabela.columns:
-                resposta = tabela.to_html()
+                resposta = tabela.to_html(index=False)
                 break
             else:
                 resposta = 'FSAN não identificado'

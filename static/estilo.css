@@ -10,6 +10,10 @@ img {
     width: 50%;
 }
 
+thead {
+    border: hidden;
+}
+
 .imagem {
     text-align: center;
     border: solid;
@@ -18,7 +22,7 @@ img {
 .dataframe {
     width: 100%;
     margin: 0 auto;
-    border: solid;
+    border: hidden;
 }
 
 .jumbotron {
@@ -30,4 +34,10 @@ img {
     margin-top: 40px;
     margin-bottom: 20px;
     font-weight: 900;
+}
+
+.titulo-stats {
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 30px;
 }
