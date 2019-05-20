@@ -1,1 +1,1 @@
-web: gunicorn app:netstats --log-file=-
+web: gunicorn netstats:app --log-file=-
