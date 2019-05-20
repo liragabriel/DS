@@ -7,7 +7,7 @@ plt.style.use('ggplot')
 
 
 """ ACCESS """
-logs = pd.read_csv(r'websvc_access.csv')
+logs = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_access.csv') 
 logs.drop('fora', inplace=True, axis=1)
 
 
@@ -66,7 +66,7 @@ def status_code():
 
 
 """ ERROR """
-operacao = pd.read_csv(r'websvc_error1.csv')
+operacao = pd.read_csv (r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
 
 
 # Lista todos os elementos da coluna operacao
