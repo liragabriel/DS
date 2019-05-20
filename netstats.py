@@ -1,3 +1,13 @@
+#------------------------------------------------
+#
+#        Trabalho de Conclusão de Curso
+#
+# Faculdade de Americana - Ciência da Computação
+#
+#            by Gabriel Lira @ 2019
+#
+#------------------------------------------------
+
 import os
 import pandas as pd
 import seaborn as sns
@@ -7,11 +17,13 @@ plt.style.use('ggplot')
 
 
 """ ACCESS """
-logs = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_access.csv') 
+logs = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_access.csv')
 logs.drop('fora', inplace=True, axis=1)
 
 
+#--------------------------------------------------------------------------
 # Retorna um gráfico e um dataframe com a quantidade de acessos por usuário
+#--------------------------------------------------------------------------
 def acesso_por_usuario():
 
     acessos_por_usuario = logs.usuario.value_counts().to_frame().reset_index()
@@ -27,7 +39,9 @@ def acesso_por_usuario():
     data_acesso_por_usuario = acessos_por_usuario.head().to_html()
 
 
+#-----------------------------------------------------------------------
 # Retorna uma gráfico e um dataframe com a quantidade de acessos por url
+#-----------------------------------------------------------------------
 def acesso_por_url():
 
     urls = logs.url.value_counts().to_frame().reset_index()
@@ -47,7 +61,9 @@ def acesso_por_url():
     data_acesso_por_url = urls.head().to_html()
 
 
+#-----------------------------------------------------------------------
 # Retorna um gráfico e um dataframe com a frequência de cada código HTTP
+#-----------------------------------------------------------------------
 def status_code():
 
     status = logs.status_code.value_counts().to_frame().reset_index()
@@ -66,7 +82,7 @@ def status_code():
 
 
 """ ERROR """
-operacao = pd.read_csv (r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
+operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
 
 
 # Lista todos os elementos da coluna operacao
@@ -120,7 +136,9 @@ for i in range(len(lista_data)):
     ultima_msg.append(lista_data[i].loc[lista_data[i].index.max(), fsan[i]])
 
 
+#-----------------------------------------------------
 # Retorna um gráfico com o percentual total de sucesso
+#-----------------------------------------------------
 def percentual_sucesso():
     contador_creates = 0
     for item in ultima_msg:
@@ -162,7 +180,9 @@ def percentual_sucesso():
     plt.savefig('static/percentual_sucesso.png')
 
 
+#----------------------------------------------------------------
 # Retorna um gráfico com as operações que obtiveram mais sucessos
+#----------------------------------------------------------------
 def sucesso_por_operacao():
     sucessos = []
     for i in range(len(ultima_msg)):
@@ -211,7 +231,9 @@ def sucesso_por_operacao():
     plt.savefig('static/operacao_sucesso.png')
 
 
+#-------------------------------------------------------------
 # Retorna um gráfico com as operações que obtiveram mais erros
+#-------------------------------------------------------------
 def erros_por_operacao():
     erros = []
     for i in range(len(ultima_msg)):
