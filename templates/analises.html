@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block base %}
+    <style>
+        .side-analises {height: 100%;}
+    </style>
+    <div class="container-fluid side-analises">
+        <div class="row side-analises">
+            <div class="col-lg-2" style="background-color: lightslategray">
+                <div class="wrapper">
+                    <nav>
+                        <div class="sidebar-header">
+                            <h3>Relatórios</h3>
+                        </div>
+                        <ul class="list-unstyled components">
+                            <li class="nav-item">
+                                <a class="nav-link" href="acessos-por-usuario">
+                                    <i class="far fa-edit"></i>
+                                    <span>Acessos por Usuário</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="acessos-por-url">
+                                    <i class="far fa-edit"></i>
+                                    <span>Acessos por URL</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="status-code">
+                                    <i class="far fa-edit"></i>
+                                    <span>Status Code</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="percentual-sucesso">
+                                    <i class="far fa-edit"></i>
+                                    <span>Percentual de Sucesso</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="sucesso-por-operacao">
+                                    <i class="far fa-edit"></i>
+                                    <span>Sucesso por Operação</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="erros-por-operacao">
+                                    <i class="far fa-edit"></i>
+                                    <span>Erros por Operação</span>
+                                </a>
+                            </li>
+                        <ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+{% endblock base %}

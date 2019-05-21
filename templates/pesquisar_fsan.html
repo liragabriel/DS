@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block base %}
     <div class="container">
         <form action="pesquisar-fsan" method="POST">
-            <div class="row justify-content-center" style="margin-bottom: 30px">
+            <div class="row justify-content-center" style="margin-bottom: 30px; margin-top: 60px">
                 <form class="form">
                     <div class="col-md-5 col-sm-12">
                         <input name="fsan" class="form-control mr-sm-2" type="search" placeholder="Pesquisar FSAN" aria-label="Search">
@@ -20,4 +20,4 @@
             </div>
         </form>
     </div>
-{% endblock content %}
+{% endblock base %}

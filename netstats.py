@@ -332,7 +332,7 @@ app = Flask(__name__)
 def home():
     for imagem in os.listdir('static'):
         if imagem in os.listdir('static'):
-            if imagem != 'estilo.css' and imagem != 'fontAwesome' and imagem != 'fundo.jpeg':
+            if imagem != 'estilo.css' and imagem != 'fontAwesome':
                 os.remove(f'static/{imagem}')
     return render_template('home.html')
 
@@ -351,6 +351,11 @@ def pesquisar_fsan():
         return render_template('pesquisar_fsan.html', resposta=resposta)
     else:
         return render_template('pesquisar_fsan.html')
+
+
+@app.route('/analises')
+def analises():
+    return render_template('analises.html')
 
 
 """ ROTAS ACCESS """
