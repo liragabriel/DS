@@ -429,6 +429,3 @@ def rota_erros_por_operacao():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-#038AD969
-#038D60D9
