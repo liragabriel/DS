@@ -4,138 +4,165 @@
 #
 # Faculdade de Americana - Ciência da Computação
 #
-#            by Gabriel Lira @ 2019
+#            by Gabriel Lira © 2019
 #
 #------------------------------------------------
 
-import os
 import pandas as pd
 import seaborn as sns
-from flask import Flask, render_template, request
 from matplotlib import pyplot as plt
 plt.style.use('ggplot')
 
 
-""" ACCESS """
-logs = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_access.csv')
-logs.drop('fora', inplace=True, axis=1)
+class Access:
+
+    def __init__(self, logs):
+        self.logs = logs
 
 
-#--------------------------------------------------------------------------
-# Retorna um gráfico e um dataframe com a quantidade de acessos por usuário
-#--------------------------------------------------------------------------
-def acesso_por_usuario():
+    """
+    @ Rota: acesso_por_usuario
+    @ Descrição: retorna um gráfico e um dataframe com a quantidade de acessos por usuário
+    """
+    def graph_acesso_por_usuario(self):
 
-    acessos_por_usuario = logs.usuario.value_counts().to_frame().reset_index()
-    acessos_por_usuario.columns = ['Usuário', 'Acessos']
+        acessos_por_usuario = self.logs.usuario.value_counts().to_frame().reset_index()
+        acessos_por_usuario.columns = ['Usuário', 'Acessos']
 
-    plt.figure()
-    plt.tight_layout()
-    graf_cod = sns.barplot(x=acessos_por_usuario['Usuário'], y=acessos_por_usuario['Acessos'])
-    fig = graf_cod.get_figure()
-    fig.savefig('static/acessos_por_usuario.png')
+        plt.figure()
+        plt.tight_layout()
+        graf_cod = sns.barplot(x=acessos_por_usuario['Usuário'], y=acessos_por_usuario['Acessos'])
+        graph = graf_cod.get_figure()
+        graph.savefig('static/acessos_por_usuario.png')
 
-    global data_acesso_por_usuario
-    data_acesso_por_usuario = acessos_por_usuario.head().to_html()
+    def data_acesso_por_usuario(self):
 
+        acessos_por_usuario = self.logs.usuario.value_counts().to_frame().reset_index()
+        acessos_por_usuario.columns = ['Usuário', 'Acessos']
+        data = acessos_por_usuario.head().to_html()
 
-#-----------------------------------------------------------------------
-# Retorna uma gráfico e um dataframe com a quantidade de acessos por url
-#-----------------------------------------------------------------------
-def acesso_por_url():
-
-    urls = logs.url.value_counts().to_frame().reset_index()
-    urls.columns = ['URL', 'Acessos']
-
-    x = urls.loc[(urls['Acessos'] >= 4000)].URL
-    y = urls.Acessos
-
-    plt.figure()
-    plt.xticks(rotation=45)
-    graf_url = sns.barplot(x=x, y=y)
-    plt.tight_layout()
-    fig = graf_url.get_figure()
-    fig.savefig('static/acessos_por_url.png', dpi=300, bbox_inches='tight')
-
-    global data_acesso_por_url
-    data_acesso_por_url = urls.head().to_html()
+        return data
 
 
-#-----------------------------------------------------------------------
-# Retorna um gráfico e um dataframe com a frequência de cada código HTTP
-#-----------------------------------------------------------------------
-def status_code():
+    """
+    @ Rota: acesso_por_url
+    @ Descrição: retorna uma gráfico e um dataframe com a quantidade de acessos por url
+    """
+    def graph_acesso_por_url(self):
 
-    status = logs.status_code.value_counts().to_frame().reset_index()
-    status.columns = ['Code', 'Frequência']
+        urls = self.logs.url.value_counts().to_frame().reset_index()
+        urls.columns = ['URL', 'Acessos']
 
-    status.Code = [int(i) for i in status.Code]
+        x = urls.loc[(urls['Acessos'] >= 4000)].URL
+        y = urls.Acessos
 
-    plt.figure()
-    plt.tight_layout()
-    graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequência'])
-    fig = graf_cod.get_figure()
-    fig.savefig('static/status_code.png')
+        plt.figure()
+        plt.xticks(rotation=45)
+        graf_url = sns.barplot(x=x, y=y)
+        plt.tight_layout()
+        fig = graf_url.get_figure()
+        fig.savefig('static/acessos_por_url.png', dpi=300, bbox_inches='tight')
 
-    global data_status_code
-    data_status_code = status.head().to_html()
+    def data_acesso_por_url(self):
 
+        urls = self.logs.url.value_counts().to_frame().reset_index()
+        urls.columns = ['URL', 'Acessos']
+        data = urls.head().to_html()
 
-""" ERROR """
-operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
-
-
-# Lista todos os elementos da coluna operacao
-lista_com_todos = []
-for i in range(operacao.index.max()):
-    lista_com_todos.append(operacao.operacao.loc[(operacao.operacao.index == i)].str.split())
-
-# Lista todos os elementos que tem algum fsan
-lista_com_fsan = []
-for i in range(operacao.index.max()):
-    if 'fsan' in lista_com_todos[i][i]:
-        lista_com_fsan.append(lista_com_todos[i][i])
-
-# Lista apenas o valor do fsan
-lista_fsan = []
-for i in range(len(lista_com_fsan)):
-    for j in range(len(lista_com_fsan[i])):
-        if 'fsan' in lista_com_fsan[i][j] and 'dslam_fsan_status:' not in lista_com_fsan[i][j]:
-            lista_fsan.append(lista_com_fsan[i][j+1])
-
-# Remove valores repetidos ou sujos
-fsan = []
-for item in lista_fsan:
-    if item.endswith(':'):
-        item = item[:-1]
-    if item not in fsan:
-        fsan.append(item)
-
-# Cria uma sequência de todas as operações com determinado fsan
-sequencia = []
-for i in fsan:
-    lista = []
-    for j in operacao.operacao:
-        if i in j or i+':' in j:
-            lista.append(j)
-    sequencia.append(lista)
-
-# Cria um dataframe para cada sequência de acontecimentos
-lista_data = []
-for i in sequencia:
-    lista_data.append(pd.DataFrame(i))
-    pd.set_option('display.max_colwidth', -1)
-
-# Nomeia a coluna de cada dataframe com o valor do fsan
-for i in range(len(lista_data)):
-    lista_data[i].columns = [fsan[i]]
-
-# Lista a ultima mensagem para cada operação
-ultima_msg = []
-for i in range(len(lista_data)):
-    ultima_msg.append(lista_data[i].loc[lista_data[i].index.max(), fsan[i]])
+        return data
 
 
+    """
+    @ Rota: acesso_por_usuario
+    @ Descrição: retorna um gráfico e um dataframe com a frequência de cada código HTTP
+    """
+    def graph_status_code(self):
+
+        status = self.logs.status_code.value_counts().to_frame().reset_index()
+        status.columns = ['Code', 'Frequência']
+
+        status.Code = [int(i) for i in status.Code]
+
+        plt.figure()
+        plt.tight_layout()
+        graf_cod = sns.barplot(x=status['Code'].astype(int), y=status['Frequência'])
+        fig = graf_cod.get_figure()
+        fig.savefig('static/status_code.png')
+
+    def data_status_code(self):
+
+        status = self.logs.status_code.value_counts().to_frame().reset_index()
+        status.columns = ['Code', 'Frequência']
+
+        status.Code = [int(i) for i in status.Code]
+        data = status.head().to_html()
+
+        return data
+
+
+class Fsan:
+
+    def __init__(self, operacao):
+        self.operacao = operacao
+
+
+    def lista_de_fsans(self):
+
+        # Lista todos os elementos da coluna operacao
+        lista_com_todos = []
+        for i in range(self.operacao.index.max()):
+            lista_com_todos.append(self.operacao.operacao.loc[(self.operacao.operacao.index == i)].str.split())
+
+        # Lista todos os elementos que tem algum fsan
+        lista_com_fsan = []
+        for i in range(self.operacao.index.max()):
+            if 'fsan' in lista_com_todos[i][i]:
+                lista_com_fsan.append(lista_com_todos[i][i])
+
+        # Lista apenas o valor do fsan
+        lista_fsan = []
+        for i in range(len(lista_com_fsan)):
+            for j in range(len(lista_com_fsan[i])):
+                if 'fsan' in lista_com_fsan[i][j] and 'dslam_fsan_status:' not in lista_com_fsan[i][j]:
+                    lista_fsan.append(lista_com_fsan[i][j+1])
+
+        # Remove valores repetidos ou sujos
+        fsan = []
+        for item in lista_fsan:
+            if item.endswith(':'):
+                item = item[:-1]
+            if item not in fsan:
+                fsan.append(item)
+
+        # Cria uma sequência de todas as operações com determinado fsan
+        sequencia = []
+        for i in fsan:
+            lista = []
+            for j in self.operacao.operacao:
+                if i in j or i+':' in j:
+                    lista.append(j)
+            sequencia.append(lista)
+
+        # Cria um dataframe para cada sequência de acontecimentos
+        lista_data = []
+        for i in sequencia:
+            lista_data.append(pd.DataFrame(i))
+            pd.set_option('display.max_colwidth', -1)
+
+        # Nomeia a coluna de cada dataframe com o valor do fsan
+        for i in range(len(lista_data)):
+            lista_data[i].columns = [fsan[i]]
+
+        return lista_data
+
+
+## Lista a ultima mensagem para cada operação
+#ultima_msg = []
+#for i in range(len(lista_data)):
+#    ultima_msg.append(lista_data[i].loc[lista_data[i].index.max(), fsan[i]])
+#
+
+'''
 #-----------------------------------------------------
 # Retorna um gráfico com o percentual total de sucesso
 #-----------------------------------------------------
@@ -321,111 +348,4 @@ def erros_por_operacao():
     ax.legend(labels, loc="best")
     ax.axis('equal')
     plt.savefig('static/operacao_error.png')
-
-
-app = Flask(__name__)
-
-
-# Retorna o template inicial e exclui todos os gráficos gerados
-@app.route('/')
-@app.route('/home')
-def home():
-    for imagem in os.listdir('static'):
-        if imagem in os.listdir('static'):
-            if imagem != 'estilo.css' and imagem != 'fontAwesome':
-                os.remove(f'static/{imagem}')
-    return render_template('home.html')
-
-
-# Retorna todas operações com o fsan pesquisado
-@app.route('/pesquisar-fsan', methods=['POST', 'GET'])
-def pesquisar_fsan():
-    if request.method == 'POST':
-        fsan = request.form['fsan']
-        for tabela in lista_data:
-            if fsan == tabela.columns:
-                resposta = tabela.to_html(index=False)
-                break
-            else:
-                resposta = 'FSAN não identificado'
-        return render_template('pesquisar_fsan.html', resposta=resposta)
-    else:
-        return render_template('pesquisar_fsan.html')
-
-
-@app.route('/analises')
-def analises():
-    return render_template('analises.html')
-
-
-""" ROTAS ACCESS """
-# Se existir gráfico na pasta static retorna o template, se não retorna o método que gera o gráfico
-
-@app.route('/acessos-por-usuario')
-def rota_acesso_por_usuario():
-    imagem = 'static/acessos_por_usuario.png'
-    while True:
-        try:
-            if os.path.exists(imagem):
-                return render_template('acessos_por_usuario.html', data=data_acesso_por_usuario)
-            else:
-                acesso_por_usuario()
-        except:
-            rota_acesso_por_usuario()
-
-
-@app.route('/acessos-por-url')
-def rota_acesso_por_url():
-    imagem = 'static/acessos_por_url.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('acessos_por_url.html', data=data_acesso_por_url)
-        else:
-            acesso_por_url()
-
-
-@app.route('/status-code')
-def rota_status_code():
-    imagem = 'static/status_code.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('status_code.html', data=data_status_code)
-        else:
-            status_code()
-
-
-""" ROTAS ACCESS """
-# Se existir gráfico na pasta static retorna o template, se não retorna o método que gera o gráfico
-
-@app.route('/percentual-sucesso')
-def rota_percentual_sucesso():
-    imagem = 'static/percentual_sucesso.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('percentual_sucesso.html')
-        else:
-            percentual_sucesso()
-
-
-@app.route('/sucesso-por-operacao')
-def rota_sucesso_por_operacao():
-    imagem = 'static/operacao_sucesso.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('sucesso_por_operacao.html')
-        else:
-            sucesso_por_operacao()
-
-
-@app.route('/erros-por-operacao')
-def rota_erros_por_operacao():
-    imagem = 'static/operacao_error.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('operacao_error.html')
-        else:
-            erros_por_operacao()
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+'''
