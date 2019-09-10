@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from netstats import Access, Fsan, ListaData, Error
 
 
-logs = pd.read_csv(r'/home/desktop/lng/teste_tcc/websvc_access.csv')
+logs = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_access.csv')
 logs.drop('fora', inplace=True, axis=1)
 operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
 

@@ -5,6 +5,8 @@
         <link rel="stylesheet" type="text/css" href="static/fontAwesome/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script>"http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"</script>
+        <script>"http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"</script>
         <title>NetStats</title>
     </head>
     <style>
@@ -14,7 +16,7 @@
         .imagem {text-align: center; border: solid;}
         .dataframe {width: 100%; margin: 0 auto; margin-top: 10%; border: black;}
         h3 {color: white; font-weight: bold;}
-        a {color: white; font-size: large;}
+        a {color: white;}
         img {width: 50%;}
     </style>
     <body>
@@ -23,19 +25,19 @@
                 <div class="collapse navbar-collapse nav justify-content-end" id="nav-content">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="home">
+                            <a class="nav-link mb-0" href="home">
                                 <i class="fas fa-home"></i>
                                 <span>Home</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pesquisar-fsan">
+                            <a class="nav-link mb-0" href="pesquisar-fsan">
                                 <i class="fas fa-search"></i>
                                 <span>Pesquisar FSAN</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="analises">
+                            <a class="nav-link mb-0" href="analises">
                                 <i class="fas fa-chart-line"></i>
                                 <span>Análises</span>
                             </a>
@@ -48,3 +50,8 @@
         {% endblock base %}
     </body>
 </html>
+<script>
+    $(document).ready( function () {
+        $('#result_table').DataTable();
+    } );
+</script>
