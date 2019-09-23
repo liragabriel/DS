@@ -4,9 +4,63 @@
     <style>
         .side-analises {height: 100%;}
     </style>
-    <div class="container-fluid side-analises">
-        <div class="row side-analises">
-            <div class="col-lg-2" style="background-color: lightslategray">
+    <div class="container-fluid side-analises" style="margin-top: 30px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class ="row">
+                    <div class="col-lg-4">
+                        <form class="border border-dark rounded">
+                            <a href="acessos-por-usuario">
+                                <p class="imagem"><img src="static/acessos_por_usuario.png"></p>
+                            </a>
+                        </form>
+                    </div>
+                    <div class="col-lg-4">
+                        <form class="border border-dark rounded">
+                            <a href="acessos-por-url">
+                                <p class="imagem"><img src="static/acessos_por_url.png"></p>
+                            </a>
+                        </form>
+                    </div>
+                    <div class="col-lg-4">
+                        <form class="border border-dark rounded">
+                            <a href="status-code">
+                                <p class="imagem"><img src="static/status_code.png"></p>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <form class="border border-dark rounded">
+                            <a href="percentual-sucesso">
+                                <p class="imagem"><img src="static/percentual_sucesso.png"></p>
+                            </a>
+                        </form>
+                    </div>
+                    <div class="col-lg-4">
+                        <form class="border border-dark rounded">
+                            <a href="sucesso-por-operacao">
+                                <p class="imagem"><img src="static/operacao_sucesso.png"></p>
+                            </a>
+                        </form>
+                    </div>
+                    <div class="col-lg-4">
+                        <form class="border border-dark rounded">
+                            <a href="erros-por-operacao">
+                                <p class="imagem"><img src="static/operacao_error.png"></p>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock base %}
+
+<!-- <div class="col-lg-2" style="background-color: lightslategray">
                 <div class="wrapper">
                     <nav>
                         <div class="sidebar-header">
@@ -56,7 +110,4 @@
             <div class="col-lg-10">
                 {% block content %}
                 {% endblock content %}
-            </div>
-        </div>
-    </div>
-{% endblock base %}
+            </div> -->

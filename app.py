@@ -51,6 +51,15 @@ def pesquisar_fsan():
 
 @app.route('/analises')
 def analises():
+
+    netstats.access.graph_acesso_por_usuario()
+    netstats.access.graph_acesso_por_url()
+    netstats.access.graph_status_code()
+
+    netstats.error.percentual_sucesso()
+    netstats.error.sucesso_por_operacao()
+    netstats.error.erros_por_operacao()
+
     return render_template('analises.html')
 
 

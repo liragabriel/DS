@@ -259,27 +259,25 @@ class Error:
             if item not in lista_sucessos:
                 lista_sucessos.append(item)
 
-        smart = 0
-        onu_delete = 0
-        onu_business_create = 0
-        voip_create = 0
+        dic = {
+            'smart': 0,
+            'onu_delete:': 0,
+            'onu_business_create:': 0,
+            'voip_create:': 0
+        }
 
         for item in sucessos:
-            if 'smart' in item:
-                smart += 1
-
-            elif 'onu_delete:' in item:
-                onu_delete += 1
-
-            elif 'onu_business_create:' in item:
-                onu_business_create += 1
-
-            elif 'voip_create:' in item:
-                voip_create += 1
+            for operacao in dic:
+                if item == operacao:
+                    dic[operacao] += 1
 
         quantidade_sucessos = {
-            'Função': ['onu_home_create', 'onu_delete', 'voip_create', 'onu_business_create'],
-            'Quantidade': [smart, onu_delete, voip_create, onu_business_create]
+            'Função': [
+                'onu_home_create', 'onu_delete', 'voip_create', 'onu_business_create'
+                ],
+            'Quantidade': [
+                dic['smart'], dic['onu_delete:'], dic['voip_create:'],dic['onu_business_create:']
+                ]
         }
 
         quantidade_sucessos = pd.DataFrame(quantidade_sucessos)
@@ -288,8 +286,7 @@ class Error:
         sizes = quantidade_sucessos['Quantidade']
         colors = ['yellowgreen', 'gold', 'lightskyblue', 'lightcoral']
         fig, ax = plt.subplots(figsize=(8, 8))
-        ax.pie(sizes, colors=colors, shadow=True,
-            startangle=90, labels=labels, rotatelabels=True)
+        ax.pie(sizes, colors=colors, shadow=True)
         ax.legend(labels, loc="best")
         ax.axis('equal')
         plt.savefig('static/operacao_sucesso.png')
@@ -313,54 +310,24 @@ class Error:
             if item not in lista_erros:
                 lista_erros.append(item)
 
-        vDELETE = 0
-        onu_bridge_path_list = 0
-        onu_resync_update = 0
-        omci_onu_status = 0
-        vCREATE = 0
-        wifi_update = 0
-        onu_status = 0
-        onu_set2default_update = 0
-        onu_checa_status = 0
-        dslam_fsan_status = 0
-        onu_check_conf_status = 0
+        dic = {
+            'DELETE': 0,
+            'onu_bridge_path_list:': 0,
+            'onu_resync_update:': 0,
+            'omci_onu_status:': 0,
+            'CREATE': 0,
+            'wifi_update:': 0,
+            'onu_status:': 0,
+            'onu_set2default_update:': 0,
+            'onu_checa_status:': 0,
+            'dslam_fsan_status:': 0,
+            'onu_check_conf_status:': 0,
+        }
 
         for item in erros:
-            if 'DELETE' in item:
-                vDELETE += 1
-
-            elif 'onu_bridge_path_list:' in item:
-                onu_bridge_path_list += 1
-
-            elif 'onu_resync_update:' in item:
-                onu_resync_update += 1
-
-            elif 'onu_resync_update:' in item:
-                onu_resync_update += 1
-
-            elif 'omci_onu_status:' in item:
-                omci_onu_status += 1
-
-            elif 'CREATE' in item:
-                vCREATE += 1
-
-            elif 'wifi_update:' in item:
-                wifi_update += 1
-
-            elif 'onu_status:' in item:
-                onu_status += 1
-
-            elif 'onu_set2default_update:' in item:
-                onu_set2default_update += 1
-
-            elif 'onu_checa_status:' in item:
-                onu_checa_status += 1
-
-            elif 'dslam_fsan_status:' in item:
-                dslam_fsan_status += 1
-
-            elif 'onu_check_conf_status:' in item:
-                onu_check_conf_status += 1
+            for operacao in dic:
+                if item == operacao:
+                    dic[operacao] += 1
 
         quantidade_erros = {
             'Função': [
@@ -369,10 +336,12 @@ class Error:
                 'dslam_fsan_status', 'wifi_update', 'onu_status'
             ],
             'Quantidade': [
-                vDELETE, onu_bridge_path_list, onu_check_conf_status, onu_checa_status,
-                omci_onu_status, vCREATE, onu_resync_update, onu_set2default_update,
-                dslam_fsan_status, wifi_update, onu_status
-            ]
+                dic['DELETE'], dic['onu_bridge_path_list:'], dic['onu_resync_update:'],
+                dic['omci_onu_status:'], dic['CREATE'], dic['wifi_update:'],
+                dic['onu_status:'], dic['onu_set2default_update:'],
+                dic['onu_checa_status:'], dic['dslam_fsan_status:'],
+                dic['onu_check_conf_status:']
+                ]
         }
 
         quantidade_erros = pd.DataFrame(quantidade_erros)
@@ -382,9 +351,7 @@ class Error:
         colors = ['yellowgreen', 'gold', 'lightskyblue', 'lightcoral', 'crimson', 'darkblue',
                   'fuchsia', 'sienna', 'tan', 'orangered', 'dimgray']
         fig, ax = plt.subplots(figsize=(8, 8))
-        ax.pie(sizes, colors=colors, shadow=True, startangle=90, labels=labels, labeldistance=0.7,
-               rotatelabels=True, textprops=dict(rotation_mode='anchor', va='center',
-                                                 ha='center'))
+        ax.pie(sizes, colors=colors, shadow=True)
         ax.legend(labels, loc="best")
         ax.axis('equal')
         plt.savefig('static/operacao_error.png')
