@@ -1,3 +1,11 @@
+# Netstats 1.0.1 Release Notes
+
+*23/09/2019*
+
+## Correções
+
+* Página de análises
+
 # Netstats 1.0.0 Release Notes
 
 *18/09/2019*
