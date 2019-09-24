@@ -1,3 +1,13 @@
+# Netstats 1.0.2 Release Notes
+
+*24/09/2019*
+
+## Correções
+
+* Docstring dos arquivos python
+* Cor base do sistema
+* Pesquisa FSAN retorna json
+
 # Netstats 1.0.1 Release Notes
 
 *23/09/2019*
