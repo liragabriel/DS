@@ -1,3 +1,9 @@
+"""
+            Trabalho de Conclusão de Curso
+    Faculdade de Americana - Ciência da Computação
+                Gabriel Lira © 2019
+"""
+
 import os
 import pandas as pd
 from flask import Flask, render_template, request
@@ -36,15 +42,19 @@ def home():
 # Retorna todas operações com o fsan pesquisado
 @app.route('/pesquisar-fsan', methods=['POST', 'GET'])
 def pesquisar_fsan():
+
     if request.method == 'POST':
+
         fsan_value = request.form['fsan']
+
         for tabela in netstats.lista_data.dataframe():
             if fsan_value == tabela.columns:
-                resposta = tabela.to_html(index=False)
+                resposta = tabela.to_json(orient='values')
                 break
             else:
                 resposta = 'FSAN não identificado'
-        return render_template('pesquisar_fsan.html', resposta=resposta)
+        return render_template('pesquisar_fsan.html', resposta=resposta, fsan=fsan_value)
+
     else:
         return render_template('pesquisar_fsan.html')
 

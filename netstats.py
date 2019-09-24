@@ -1,13 +1,3 @@
-#------------------------------------------------
-#
-#        Trabalho de Conclusão de Curso
-#
-# Faculdade de Americana - Ciência da Computação
-#
-#            by Gabriel Lira © 2019
-#
-#------------------------------------------------
-
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
@@ -21,8 +11,8 @@ class Access:
 
 
     """
-    @ Rota: acesso_por_usuario
-    @ Descrição: retorna um gráfico e um dataframe com a quantidade de acessos por usuário
+        Rota: acesso_por_usuario
+        Descrição: retorna um gráfico e um dataframe com a quantidade de acessos por usuário
     """
     def graph_acesso_por_usuario(self):
 
@@ -45,8 +35,8 @@ class Access:
 
 
     """
-    @ Rota: acesso_por_url
-    @ Descrição: retorna uma gráfico e um dataframe com a quantidade de acessos por url
+        Rota: acesso_por_url
+        Descrição: retorna uma gráfico e um dataframe com a quantidade de acessos por url
     """
     def graph_acesso_por_url(self):
 
@@ -73,8 +63,8 @@ class Access:
 
 
     """
-    @ Rota: acesso_por_usuario
-    @ Descrição: retorna um gráfico e um dataframe com a frequência de cada código HTTP
+        Rota: acesso_por_usuario
+        Descrição: retorna um gráfico e um dataframe com a frequência de cada código HTTP
     """
     def graph_status_code(self):
 
