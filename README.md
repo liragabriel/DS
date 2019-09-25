@@ -15,4 +15,4 @@ Find the release notes ([NEWS](https://github.com/liragabriel/DS/blob/master/NEW
 
 ## Author
 
-**Gabriel Lira** - ([www.liragabriel.com](http://www.liragabriel.com))
+**Gabriel Lira** - [www.liragabriel.com](http://www.liragabriel.com)
