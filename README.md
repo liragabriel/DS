@@ -15,7 +15,7 @@ In development. All variables and docstrings are in portuguese, if you have any 
 
 ## Version
 
-Find the release notes ([NEWS](https://github.com/liragabriel/DS/blob/master/NEWS.md))
+Find the release notes - [CHANGELOG](https://github.com/liragabriel/DS/blob/master/NEWS.md)
 
 ## Author
 
