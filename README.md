@@ -10,7 +10,8 @@ In development. All variables and docstrings are in portuguese, if you have any 
 ## Installation
 
     git clone https://github.com/liragabriel/netstats.git
-    FSANs for test: 038AD969 038D60D9
+    cd netstats
+    pip install .
 
 ## Version
 
