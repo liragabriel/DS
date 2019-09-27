@@ -7,12 +7,15 @@
 import os
 import pandas as pd
 from flask import Flask, render_template, request
-from netstats import Access, Fsan, ListaData, Error
+from netstats.access import Access
+from netstats.fsan import Fsan
+from netstats.lista_dataframe import ListaDataframe
+from netstats.error import Error
 
 
-logs = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_access.csv')
+logs = pd.read_csv(r'/home/desktop/dev/netstats/websvc_access.csv')
 logs.drop('fora', inplace=True, axis=1)
-operacao = pd.read_csv(r'/home/desktop/dev/jupyter/DS/websvc_error1.csv')
+operacao = pd.read_csv(r'/home/desktop/dev/netstats/websvc_error1.csv')
 
 
 class Netstats:
@@ -20,7 +23,7 @@ class Netstats:
     def __init__(self):
         self.access = Access(logs)
         self.fsan = Fsan(operacao)
-        self.lista_data = ListaData(operacao)
+        self.lista_data = ListaDataframe(operacao)
         self.error = Error(operacao)
 
 
@@ -28,7 +31,6 @@ app = Flask(__name__)
 netstats = Netstats()
 
 
-# Retorna o template inicial e exclui todos os gráficos gerados
 @app.route('/')
 @app.route('/home')
 def home():
@@ -39,7 +41,6 @@ def home():
     return render_template('home.html')
 
 
-# Retorna todas operações com o fsan pesquisado
 @app.route('/pesquisar-fsan', methods=['POST', 'GET'])
 def pesquisar_fsan():
 
@@ -62,78 +63,59 @@ def pesquisar_fsan():
 @app.route('/analises')
 def analises():
 
-    netstats.access.graph_acesso_por_usuario()
-    netstats.access.graph_acesso_por_url()
-    netstats.access.graph_status_code()
+    while True:
+        if not os.path.exists('static/acessos_por_usuario.png'):
+            netstats.access.graph_acesso_por_usuario()
 
-    netstats.error.percentual_sucesso()
-    netstats.error.sucesso_por_operacao()
-    netstats.error.erros_por_operacao()
+        if not os.path.exists('static/acessos_por_url.png'):
+            netstats.access.graph_acesso_por_url()
 
-    return render_template('analises.html')
+        if not os.path.exists('static/status_code.png'):
+            netstats.access.graph_status_code()
+
+        if not os.path.exists('static/percentual_sucesso.png'):
+            netstats.error.percentual_sucesso()
+
+        if not os.path.exists('static/operacao_sucesso.png'):
+            netstats.error.sucesso_por_operacao()
+
+        if not os.path.exists('static/operacao_error.png'):
+            netstats.error.erros_por_operacao()
+
+        else:
+            return render_template('analises.html')
 
 
 @app.route('/acessos-por-usuario')
 def acesso_por_usuario():
-    imagem = 'static/acessos_por_usuario.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('acessos_por_usuario.html',
-                                   data=netstats.access.data_acesso_por_usuario())
-        else:
-            netstats.access.graph_acesso_por_usuario()
+    return render_template('acessos_por_usuario.html',
+                            data=netstats.access.data_acesso_por_usuario())
 
 
 @app.route('/acessos-por-url')
 def rota_acesso_por_url():
-    imagem = 'static/acessos_por_url.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('acessos_por_url.html',
+    return render_template('acessos_por_url.html',
                                    data=netstats.access.data_acesso_por_url())
-        else:
-            netstats.access.graph_acesso_por_url()
 
 
 @app.route('/status-code')
 def rota_status_code():
-    imagem = 'static/status_code.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('status_code.html', data=netstats.access.data_status_code())
-        else:
-            netstats.access.graph_status_code()
+    return render_template('status_code.html', data=netstats.access.data_status_code())
 
 
-"""ERROR"""
 @app.route('/percentual-sucesso')
 def rota_percentual_sucesso():
-    imagem = 'static/percentual_sucesso.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('percentual_sucesso.html')
-        else:
-            netstats.error.percentual_sucesso()
+    return render_template('percentual_sucesso.html')
 
 
 @app.route('/sucesso-por-operacao')
 def rota_sucesso_por_operacao():
-    imagem = 'static/operacao_sucesso.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('sucesso_por_operacao.html')
-        else:
-            netstats.error.sucesso_por_operacao()
+    return render_template('sucesso_por_operacao.html')
 
 
 @app.route('/erros-por-operacao')
 def rota_erros_por_operacao():
-    imagem = 'static/operacao_error.png'
-    while True:
-        if os.path.exists(imagem):
-            return render_template('operacao_error.html')
-        else:
-            netstats.error.erros_por_operacao()
+    return render_template('operacao_error.html')
 
 
 if __name__ == '__main__':

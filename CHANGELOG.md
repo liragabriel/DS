@@ -1,3 +1,10 @@
+# Netstats 2.0.0 Release Notes
+
+*27/09/2019*
+
+O Netstas foi dividido em módulos, o arquivo [app.py](https://github.com/liragabriel/netstats/blob/master/netstats/app.py)
+é responsável por gerenciar todas as rotas, onde também é utilizado o framework [Flask](https://palletsprojects.com/p/flask/).
+
 # Netstats 1.0.2 Release Notes
 
 *24/09/2019*
