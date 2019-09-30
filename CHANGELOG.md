@@ -1,3 +1,11 @@
+# Netstats 2.1.0 Release Notes
+
+*30/09/2019*
+
+## Features
+
+* Estatísticas gerais
+
 # Netstats 2.0.0 Release Notes
 
 *27/09/2019*

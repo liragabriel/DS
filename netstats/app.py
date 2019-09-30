@@ -11,6 +11,7 @@ from netstats.access import Access
 from netstats.fsan import Fsan
 from netstats.lista_dataframe import ListaDataframe
 from netstats.error import Error
+from netstats.estatisticas_gerais import EstatisticasGerais
 
 
 logs = pd.read_csv(r'/home/desktop/dev/netstats/websvc_access.csv')
@@ -25,6 +26,7 @@ class Netstats:
         self.fsan = Fsan(operacao)
         self.lista_data = ListaDataframe(operacao)
         self.error = Error(operacao)
+        self.estatisticas = EstatisticasGerais(operacao)
 
 
 app = Flask(__name__)
@@ -38,7 +40,10 @@ def home():
         if imagem in os.listdir('static'):
             if imagem != 'estilo.css' and imagem != 'fontAwesome':
                 os.remove(f'static/{imagem}')
-    return render_template('home.html')
+
+    resposta = netstats.estatisticas.estatisticas()
+
+    return render_template('home.html', data=resposta)
 
 
 @app.route('/pesquisar-fsan', methods=['POST', 'GET'])
@@ -89,13 +94,13 @@ def analises():
 @app.route('/acessos-por-usuario')
 def acesso_por_usuario():
     return render_template('acessos_por_usuario.html',
-                            data=netstats.access.data_acesso_por_usuario())
+                           data=netstats.access.data_acesso_por_usuario())
 
 
 @app.route('/acessos-por-url')
 def rota_acesso_por_url():
     return render_template('acessos_por_url.html',
-                                   data=netstats.access.data_acesso_por_url())
+                           data=netstats.access.data_acesso_por_url())
 
 
 @app.route('/status-code')

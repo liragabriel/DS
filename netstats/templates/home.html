@@ -12,6 +12,9 @@
                 </div>
             </div>
             <div class="col-md-10" style="margin: 0 auto">
+                <form style="background-color: lightgrey">
+                    {{ data | safe }}
+                </form>
                 <h2 class="title-home">Teste</h2>
                 <p>
                     Aqui vai ficar um texte legal
@@ -23,4 +26,9 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready( function () {
+            $('#response_table').DataTable();
+        } );
+    </script>
 {% endblock base %}

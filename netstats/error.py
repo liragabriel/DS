@@ -23,7 +23,8 @@ class Error:
 
         contador_creates = 0
         for item in ultima_msg:
-            if 'OK' in item or 'onu_business_create' in item or 'voip_create:' in item or 'onu_delete: fsan' in item:
+            if 'OK' in item or 'onu_business_create' in item or 'voip_create:' in item or '\
+                onu_delete: fsan' in item:
                 contador_creates += 1
 
         cruzo_creates = contador_creates*100
