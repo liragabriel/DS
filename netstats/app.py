@@ -14,9 +14,9 @@ from netstats.error import Error
 from netstats.estatisticas_gerais import EstatisticasGerais
 
 
-logs = pd.read_csv(r'/home/desktop/dev/netstats/websvc_access.csv')
+logs = pd.read_csv(r'static/websvc_access.csv')
 logs.drop('fora', inplace=True, axis=1)
-operacao = pd.read_csv(r'/home/desktop/dev/netstats/websvc_error1.csv')
+operacao = pd.read_csv(r'static/websvc_error1.csv')
 
 
 class Netstats:
@@ -38,7 +38,7 @@ netstats = Netstats()
 def home():
     for imagem in os.listdir('static'):
         if imagem in os.listdir('static'):
-            if imagem != 'estilo.css' and imagem != 'fontAwesome':
+            if imagem != 'estilo.css' and imagem != 'fontAwesome' and imagem != 'websvc_access.csv' and imagem != 'websvc_error1.csv':
                 os.remove(f'static/{imagem}')
 
     resposta = netstats.estatisticas.estatisticas()

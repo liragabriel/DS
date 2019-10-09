@@ -1,5 +1,5 @@
-import pandas as pd
 from netstats.lista_dataframe import ListaDataframe
+
 
 class EstatisticasGerais:
 
@@ -43,16 +43,10 @@ class EstatisticasGerais:
         res_maior = max(maior)
 
         data_stats_success = {
-            'Parâmetro': ['Quantidade de operações',
-                          'Quantidade de fsans',
-                          'Média de operações por fsan',
-                          'Maior número de operações em uma fsan'],
-            'Quantidade': [int(operacoes),
-                           int(fsans),
-                           int(media),
-                           int(res_maior)],
+            'Quantidade de operações': int(operacoes),
+            'Quantidade de fsans': int(fsans),
+            'Média de operações por fsan': int(media),
+            'Maior número de operações em uma fsan': int(res_maior),
         }
 
-
-        data = pd.DataFrame(data_stats_success)
-        return data.to_html()
+        return data_stats_success

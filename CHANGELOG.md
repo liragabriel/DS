@@ -1,3 +1,11 @@
+# Netstats 2.1.1 Release Notes
+
+*09/10/2019*
+
+## Correções
+
+* Retorno da função `estatisticas_gerais`
+
 # Netstats 2.1.0 Release Notes
 
 *30/09/2019*

@@ -16,23 +16,17 @@
         </form>
         <div>
             <table id="tabela_fsans" name="tabela_fsans" class="display">
-                <thead>
-                    <tr>
-                        <th>{{ fsan }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ resposta }}</td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
     <script>
-        $(document).ready(function(){
-            $("#tabela_fsans").DataTable();
-                $('.dataTables_length').addClass('bs-select');
+        $(document).ready(function() {
+            $('#tabela_fsans').DataTable( {
+                data: {{ resposta }},
+                columns: [
+                    {{ fsan }}
+                ]
+            } );
         } );
     </script>
 {% endblock base %}

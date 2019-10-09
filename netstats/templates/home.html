@@ -1,34 +1,59 @@
 {% extends "base.html" %}
 
 {% block base %}
+    <!--<style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-4 text-center" style="color: grey; font-weight: 900">TESTE</h1>
-                        <p class="lead text-center" style="color: grey; font-weight: 900">Testando o teste testado.</p>
-                    </div>
-                </div>
+            <div class="col-md-10 offset-md-1 mt-5 mb-5">
+                <p class="lead text-center" style="color: grey; font-weight: 900">
+                    O Netstats é um sistema que gera algumas informações com base em dados coletados
+                    do webservice de um provedor de redes.
+
+                    Essas informações são tratados e alguns gráficos são gerados para análise.
+
+                    O projeto está disponível em https://github.com/liragabriel/netstats.
+                </p>
             </div>
-            <div class="col-md-10" style="margin: 0 auto">
-                <form style="background-color: lightgrey">
-                    {{ data | safe }}
-                </form>
-                <h2 class="title-home">Teste</h2>
-                <p>
-                    Aqui vai ficar um texte legal
-                </p>
-                <h2 class="title-home">Outro teste</h2>
-                <p>
-                    Aqui vai ficar outro texto legal
-                </p>
+            <div class="col-md-6 offset-md-3">
+                <p class="lead text-center">Estatísticas Gerais</p>
+                <table class="table table-bordered table-hover table-striped" id="response_table">
+                    <tr>
+                        <th scope="col">Quantidade de operações:</th>
+                        <td>{{ data['Quantidade de operações'] }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Quantidade de fsans:</th>
+                        <td>{{ data['Quantidade de fsans'] }}</td>
+                    </tr>
+                    </tr>
+                        <th scope="col">Média de operações por fsan:</th>
+                        <td>{{ data['Média de operações por fsan'] }}</td>
+                    </tr>
+                    </tr>
+                        <th scope="col">Maior número de operações em uma fsan:</th>
+                        <td>{{ data['Maior número de operações em uma fsan'] }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
     <script>
         $(document).ready( function () {
-            $('#response_table').DataTable();
+            $('#response_table').dataTable();
         } );
     </script>
 {% endblock base %}
