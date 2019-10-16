@@ -21,5 +21,13 @@ Find the release notes - [CHANGELOG](https://github.com/liragabriel/DS/blob/mast
 
 ## Author and License
 
-**MIT License** - [View license](http://www.liragabriel.com/mit-license)<br>
-**Copyright (c) 2019 Gabriel Lira** - [www.liragabriel.com](http://www.liragabriel.com)
+<p align="center" style="margin-top: 10%">
+    <strong>
+        <a href="http://www.liragabriel.com/mit-license">View License<a>
+    </strong>
+</p>
+<p align="center">
+    <strong>
+        <a href="http://www.liragabriel.com">Copyright (c) 2019 Gabriel Lira</a>
+    </strong>
+</p>
