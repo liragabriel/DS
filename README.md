@@ -16,8 +16,10 @@ In development. All variables and docstrings are in portuguese, if you have any 
 
 ## Version
 
+**v2.1.0**<br>
 Find the release notes - [CHANGELOG](https://github.com/liragabriel/DS/blob/master/CHANGELOG.md)
 
-## Author
+## Author and License
 
-**Gabriel Lira** - [www.liragabriel.com](http://www.liragabriel.com)
+**MIT License** - [View license](http://www.liragabriel.com/mit-license)<br>
+**Copyright (c) 2019 Gabriel Lira** - [www.liragabriel.com](http://www.liragabriel.com)
