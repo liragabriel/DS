@@ -15,18 +15,7 @@
             </div>
         </form>
         <div>
-            <table id="tabela_fsans" name="tabela_fsans" class="display">
-            </table>
+            {{ resposta | safe }}
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('#tabela_fsans').DataTable( {
-                data: {{ resposta }},
-                columns: [
-                    {{ fsan }}
-                ]
-            } );
-        } );
-    </script>
 {% endblock base %}

@@ -1,4 +1,3 @@
-import pandas as pd
 from matplotlib import pyplot as plt
 from netstats.lista_mensagens import ListaMensagens
 
@@ -9,14 +8,14 @@ class Error:
         self.operacao = operacao
 
 
-    def percentual_sucesso(self):
+    def data_percentual_sucesso(self):
 
         """
-            Cria um arquivo png com o gráfico representando o percentual de sucessos por operação.
+            Retorna um dicionário com a quantidade de operações bem-sucedidas.
 
             Returns
             -------
-                None
+                dict
         """
 
         ultima_msg = ListaMensagens(self.operacao).mensagem()
@@ -27,29 +26,41 @@ class Error:
                 onu_delete: fsan' in item:
                 contador_creates += 1
 
-        cruzo_creates = contador_creates*100
-        resultado_sucesso = cruzo_creates/len(ultima_msg)
-
-        #Percentual de ERROR
         contador_error = 0
         for item in ultima_msg:
             if 'error' in item:
                 contador_error += 1
-
-        cruzo_error = contador_error*100
-        resultado_error = cruzo_error/len(ultima_msg)
-
-        ocorrencia = {
-            'tipo': ['Sucesso', 'Erro'],
-            'quantidade': [resultado_sucesso, resultado_error]
-        }
 
         data_ocorrencia = {
             'Resultado': ['Sucesso', 'Erro'],
             'FSANs': [contador_creates, contador_error]
         }
 
-        data_ocorrencia = pd.DataFrame(data_ocorrencia)
+        return data_ocorrencia
+
+
+    def graph_percentual_sucesso(self):
+
+        """
+            Cria um arquivo png com o gráfico representando a quantidade de operações bem-sucedidas
+
+            para cada operação.
+
+            Returns
+            -------
+                None
+        """
+
+        ultima_msg = ListaMensagens(self.operacao).mensagem()
+        data_ocorrencia = Error(self.operacao).data_percentual_sucesso()
+
+        resultado_sucesso = (data_ocorrencia['FSANs'][0]*100)/len(ultima_msg)
+        resultado_error = (data_ocorrencia['FSANs'][1]*100)/len(ultima_msg)
+
+        ocorrencia = {
+            'tipo': ['Sucesso', 'Erro'],
+            'quantidade': [resultado_sucesso, resultado_error]
+        }
 
         labels = ocorrencia['tipo']
         sizes = ocorrencia['quantidade']
@@ -62,16 +73,14 @@ class Error:
         plt.savefig('static/percentual_sucesso.png')
 
 
-    def sucesso_por_operacao(self):
+    def data_sucesso_por_operacao(self):
 
         """
-            Cria um arquivo png com o gráfico representando a quantidade de operações bem-sucedidas
-
-            para cada operação.
+            Retorna um dicionário com o percentual de sucessos por operação.
 
             Returns
             -------
-                None
+                dict
         """
 
         ultima_msg = ListaMensagens(self.operacao).mensagem()
@@ -108,7 +117,20 @@ class Error:
                 ]
         }
 
-        quantidade_sucessos = pd.DataFrame(quantidade_sucessos)
+        return quantidade_sucessos
+
+
+    def graph_sucesso_por_operacao(self):
+
+        """
+            Cria um arquivo png com o gráfico representando o percentual de sucessos por operação.
+
+            Returns
+            -------
+                None
+        """
+
+        quantidade_sucessos = Error(self.operacao).data_sucesso_por_operacao()
 
         labels = quantidade_sucessos['Função']
         sizes = quantidade_sucessos['Quantidade']
@@ -120,16 +142,14 @@ class Error:
         plt.savefig('static/operacao_sucesso.png')
 
 
-    def erros_por_operacao(self):
+    def data_erros_por_operacao(self):
 
         """
-            Cria um arquivo png com o gráfico representando a quantidade de operações malsucedidas
-
-            para cada operação.
+            Retorna um dicionário com a quantidade de operações malsucedidas.
 
             Returns
             -------
-                None
+                dict
         """
 
         ultima_msg = ListaMensagens(self.operacao).mensagem()
@@ -179,7 +199,22 @@ class Error:
                 ]
         }
 
-        quantidade_erros = pd.DataFrame(quantidade_erros)
+        return quantidade_erros
+
+
+    def graph_erros_por_operacao(self):
+
+        """
+            Cria um arquivo png com o gráfico representando a quantidade de operações malsucedidas.
+
+            para cada operação.
+
+            Returns
+            -------
+                None
+        """
+
+        quantidade_erros = Error(self.operacao).data_erros_por_operacao()
 
         labels = quantidade_erros['Função']
         sizes = quantidade_erros['Quantidade']

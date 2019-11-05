@@ -18,19 +18,22 @@
     </style>-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10 offset-md-1 mt-5 mb-5">
+            <div class="col-md-6 offset-md-3 mt-5 mb-5">
                 <p class="lead text-center" style="color: grey; font-weight: 900">
-                    O Netstats é um sistema que gera algumas informações com base em dados coletados
-                    do webservice de um provedor de redes.
+                    Extração de informações em um Webservice de provisionamento de redes.
 
-                    Essas informações são tratados e alguns gráficos são gerados para análise.
+                </p>
+                <p>
+                    <strong>
+                        <a class="text-primary" href="https://github.com/liragabriel/netstats.">Repositório</a><br>
+                        <a class="text-primary" href="http://www.liragabriel.com/">Autor</a>
+                    </strong>
 
-                    O projeto está disponível em https://github.com/liragabriel/netstats.
                 </p>
             </div>
             <div class="col-md-6 offset-md-3">
-                <p class="lead text-center">Estatísticas Gerais</p>
-                <table class="table table-bordered table-hover table-striped" id="response_table">
+                <p class="lead text-center"><strong>Estatísticas Gerais</strong></p>
+                <table class="table table-bordered table-hover table-striped">
                     <tr>
                         <th scope="col">Quantidade de operações:</th>
                         <td>{{ data['Quantidade de operações'] }}</td>
@@ -51,9 +54,4 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready( function () {
-            $('#response_table').dataTable();
-        } );
-    </script>
 {% endblock base %}

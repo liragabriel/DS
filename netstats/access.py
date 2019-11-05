@@ -32,16 +32,26 @@ class Access:
     def data_acesso_por_usuario(self):
 
         """
-            Cria um dataframe com a quantidade de acessos por API.
+            Cria um dicionário com a quantidade de acessos por API.
 
             Returns
             -------
-                dataframe
+                dict
         """
 
         acessos_por_usuario = self.logs.usuario.value_counts().to_frame().reset_index()
-        acessos_por_usuario.columns = ['Usuário', 'Acessos']
-        data = acessos_por_usuario.head().to_html()
+        acessos_por_usuario.columns = ['Usuario', 'Acessos']
+
+        data = {
+            'usuarios': [],
+            'acessos': []
+        }
+
+        for item in acessos_por_usuario['Usuario']:
+            data['usuarios'].append(item)
+
+        for item in acessos_por_usuario['Acessos']:
+            data['acessos'].append(item)
 
         return data
 
@@ -63,9 +73,9 @@ class Access:
         y = urls.Acessos
 
         plt.figure()
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=67.5)
         graf_url = sns.barplot(x=x, y=y)
-        plt.tight_layout()
+        plt.tight_layout(.5)
         fig = graf_url.get_figure()
         fig.savefig('static/acessos_por_url.png', dpi=300, bbox_inches='tight')
 
@@ -73,19 +83,29 @@ class Access:
     def data_acesso_por_url(self):
 
         """
-            Cria um dataframe com a quantidade de acessos por URL.
+            Cria um dicionário com a quantidade de acessos por URL.
 
             Returns
             -------
-                dataframe
+                dict
         """
 
         urls = self.logs.url.value_counts().to_frame().reset_index()
         urls.columns = ['URL', 'Acessos']
-        data = urls.head().to_html()
+        urls = urls.head()
+
+        data = {
+            'urls': [],
+            'acessos': []
+        }
+
+        for item in urls['URL']:
+            data['urls'].append(item)
+
+        for item in urls['Acessos']:
+            data['acessos'].append(item)
 
         return data
-
 
 
     def graph_status_code(self):
@@ -113,17 +133,28 @@ class Access:
     def data_status_code(self):
 
         """
-            Cria um dataframe com a frequência de cada status code.
+            Cria um dicionário com a frequência de cada status code.
 
             Returns
             -------
-                dataframe
+                dict
         """
 
         status = self.logs.status_code.value_counts().to_frame().reset_index()
-        status.columns = ['Code', 'Frequência']
+        status.columns = ['Code', 'Frequencia']
 
         status.Code = [int(i) for i in status.Code]
-        data = status.head().to_html()
+        status = status.head()
+
+        data = {
+            'code': [],
+            'frequencia': []
+        }
+
+        for item in status['Code']:
+            data['code'].append(item)
+
+        for item in status['Frequencia']:
+            data['frequencia'].append(item)
 
         return data

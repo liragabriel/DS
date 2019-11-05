@@ -7,10 +7,10 @@
 import os
 import pandas as pd
 from flask import Flask, render_template, request
-from netstats.access import Access
 from netstats.fsan import Fsan
-from netstats.lista_dataframe import ListaDataframe
 from netstats.error import Error
+from netstats.access import Access
+from netstats.lista_dataframe import ListaDataframe
 from netstats.estatisticas_gerais import EstatisticasGerais
 
 
@@ -55,7 +55,7 @@ def pesquisar_fsan():
 
         for tabela in netstats.lista_data.dataframe():
             if fsan_value == tabela.columns:
-                resposta = tabela.to_json(orient='values')
+                resposta = tabela.to_html(index=False)
                 break
             else:
                 resposta = 'FSAN não identificado'
@@ -79,13 +79,13 @@ def analises():
             netstats.access.graph_status_code()
 
         if not os.path.exists('static/percentual_sucesso.png'):
-            netstats.error.percentual_sucesso()
+            netstats.error.graph_percentual_sucesso()
 
         if not os.path.exists('static/operacao_sucesso.png'):
-            netstats.error.sucesso_por_operacao()
+            netstats.error.graph_sucesso_por_operacao()
 
         if not os.path.exists('static/operacao_error.png'):
-            netstats.error.erros_por_operacao()
+            netstats.error.graph_erros_por_operacao()
 
         else:
             return render_template('analises.html')
@@ -94,33 +94,43 @@ def analises():
 @app.route('/acessos-por-usuario')
 def acesso_por_usuario():
     return render_template('acessos_por_usuario.html',
-                           data=netstats.access.data_acesso_por_usuario())
+                           data=netstats.access.data_acesso_por_usuario(),
+                           length=len(netstats.access.data_acesso_por_usuario()['usuarios']))
 
 
 @app.route('/acessos-por-url')
 def rota_acesso_por_url():
     return render_template('acessos_por_url.html',
-                           data=netstats.access.data_acesso_por_url())
+                           data=netstats.access.data_acesso_por_url(),
+                           length=len(netstats.access.data_acesso_por_url()['urls']))
 
 
 @app.route('/status-code')
 def rota_status_code():
-    return render_template('status_code.html', data=netstats.access.data_status_code())
+    return render_template('status_code.html',
+                           data=netstats.access.data_status_code(),
+                           length=len(netstats.access.data_status_code()['code']))
 
 
 @app.route('/percentual-sucesso')
 def rota_percentual_sucesso():
-    return render_template('percentual_sucesso.html')
+    return render_template('percentual_sucesso.html',
+                           data=netstats.error.data_percentual_sucesso(),
+                           length=len(netstats.error.data_percentual_sucesso()['Resultado']))
 
 
 @app.route('/sucesso-por-operacao')
 def rota_sucesso_por_operacao():
-    return render_template('sucesso_por_operacao.html')
+    return render_template('sucesso_por_operacao.html',
+                           data=netstats.error.data_sucesso_por_operacao(),
+                           length=len(netstats.error.data_sucesso_por_operacao()['Função']))
 
 
 @app.route('/erros-por-operacao')
 def rota_erros_por_operacao():
-    return render_template('operacao_error.html')
+    return render_template('operacao_error.html',
+                           data=netstats.error.data_erros_por_operacao(),
+                           length=len(netstats.error.data_erros_por_operacao()['Função']))
 
 
 if __name__ == '__main__':

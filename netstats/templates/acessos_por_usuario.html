@@ -3,11 +3,29 @@
 {% block base %}
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-10">
-                <form style="background-color: lightgrey">
-                    {{ data | safe }}
-                    <p class="imagem"><img src="static/acessos_por_usuario.png"></p>
-                </form>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-7 text-center">
+                        <h5 class="text-center mt-4">Gráfico</h5>
+                        <img  src="static/acessos_por_usuario.png">
+                    </div>
+                    <div class="col-md-3 mt-4">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Usuários</th>
+                                    <th scope="col">Acessos</th>
+                                </tr>
+                            </thead>
+                            {% for i in range(length) %}
+                                <tr>
+                                    <td>{{ data["usuarios"][i] }}</td>
+                                    <td>{{ data["acessos"][i] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
