@@ -1,3 +1,11 @@
+# Netstats 2.1.2 Release Notes
+
+*05/11/2019*
+
+# Correções
+
+* Alterado o retorno dos métodos de análise, de dataframe para dicionário
+
 # Netstats 2.1.1 Release Notes
 
 *09/10/2019*
