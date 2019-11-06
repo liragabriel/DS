@@ -16,7 +16,7 @@ In development. All variables and docstrings are in portuguese, if you have any 
 
 ## Version
 
-**v2.1.1**<br>
+**v2.1.2**<br>
 Find the release notes - [CHANGELOG](https://github.com/liragabriel/DS/blob/master/CHANGELOG.md)
 
 ## Author and License
