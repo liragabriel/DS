@@ -38,7 +38,7 @@ netstats = Netstats()
 def home():
     for imagem in os.listdir('static'):
         if imagem in os.listdir('static'):
-            if imagem != 'estilo.css' and imagem != 'fontAwesome' and imagem != 'websvc_access.csv' and imagem != 'websvc_error1.csv':
+            if imagem != 'fontAwesome' and imagem != 'websvc_access.csv' and imagem != 'websvc_error1.csv':
                 os.remove(f'static/{imagem}')
 
     resposta = netstats.estatisticas.estatisticas()

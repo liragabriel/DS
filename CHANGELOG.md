@@ -2,7 +2,7 @@
 
 *05/11/2019*
 
-# Correções
+## Correções
 
 * Alterado o retorno dos métodos de análise, de dataframe para dicionário
 
