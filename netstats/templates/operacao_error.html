@@ -4,9 +4,28 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <form>
-                    <img src="static/operacao_error.png">
-                </form>
+                <div class="row">
+                    <div class="col-md-7 text-center">
+                        <h5 class="text-center mt-4">Gráfico</h5>
+                        <img src="static/operacao_error.png">
+                    </div>
+                    <div class="col-md-3 mt-4">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Operação</th>
+                                    <th scope="col">Quantidade</th>
+                                </tr>
+                            </thead>
+                            {% for i in range(length) %}
+                                <tr>
+                                    <td>{{ data["Função"][i] }}</td>
+                                    <td>{{ data["Quantidade"][i] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
