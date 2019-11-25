@@ -2,7 +2,7 @@
 
 [![Author](https://img.shields.io/badge/author-Gabriel-blue)](http://www.liragabriel.com)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/liragabriel/netstats/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/version-v2.1.2-yellow)](https://github.com/liragabriel/DS/blob/master/CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v2.1.3-yellow)](https://github.com/liragabriel/DS/blob/master/CHANGELOG.md)
 
 In development. All variables and docstrings are in portuguese, if you have any question, can contact me.
 
@@ -16,10 +16,8 @@ In development. All variables and docstrings are in portuguese, if you have any 
 
 ## Version
 
-**v2.1.2**<br>
+**v2.1.3**<br>
 Find the release notes - [CHANGELOG](https://github.com/liragabriel/DS/blob/master/CHANGELOG.md)
-
-## Author and License
 
 <p align="center" style="margin-top: 10%">
     <strong>

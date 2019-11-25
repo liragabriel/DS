@@ -1,3 +1,12 @@
+# Netstats 2.1.3 Release Notes
+
+*25/11/2019*
+
+## Correções
+
+* Finalizado formatação dos dataframes nos templates
+* Versão final para apresentação na Faculdade de Americana
+
 # Netstats 2.1.2 Release Notes
 
 *05/11/2019*
