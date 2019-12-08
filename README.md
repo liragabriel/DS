@@ -4,7 +4,11 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/liragabriel/netstats/blob/master/LICENSE)
 [![Version](https://img.shields.io/badge/version-v2.1.3-yellow)](https://github.com/liragabriel/DS/blob/master/CHANGELOG.md)
 
-This project was made at Faculdade de Americana as thesis to obtain the title of bachelor in computer science. The complete monograph can access in this [link](https://github.com/liragabriel/DS/blob/master/monograph.pdf). All variables and docstrings are in portuguese, if you have any question, can contact me.
+<center>
+<p align="justify">
+This project was made at Faculdade de Americana as thesis to obtain the title of bachelor in computer science. The complete monograph can access in this <a href="https://github.com/liragabriel/netstats/wiki">link</a> or <a href="https://github.com/liragabriel/DS/blob/master/monograph.pdf">PDF file</a>. All variables and docstrings are in portuguese, if you have any question, can contact me.
+</center>
+</p>
 
     Email: contact@liragabriel.com
 
